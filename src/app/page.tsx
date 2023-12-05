@@ -1,13 +1,12 @@
-import Footer from "@/components/Footer";
-import CustomerReview from "@/components/customerReview";
-import SpecialOffer from "@/components/specialOffer";
-import Services from "@/components/Services";
-import SuperQuality from "@/components/SuperQuality";
-import PopularProducts from "@/components/PopularProducts";
-import Hero from "@/components/Hero";
-import Nav from "@/components/Nav";
-import Subscribe from "@/components/Subscribe";
-
+import Nav from "@/components/nav";
+import CustomerReview from "@/sections/customerReview";
+import Footer from "@/sections/footer";
+import Hero from "@/sections/hero";
+import PopularProducts from "@/sections/popularProducts";
+import Services from "@/sections/services";
+import SpecialOffer from "@/sections/specialOffer";
+import Subscribe from "@/sections/subscribe";
+import SuperQuality from "@/sections/superQuality";
 export default function Home() {
   return (
     <main className="relative">
