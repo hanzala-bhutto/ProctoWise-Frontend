@@ -1,9 +1,9 @@
-import NavigationBar from "../participantComponents/NavigationBar";
+import Homepage from "../participantComponents/Homepage";
 
 const page = () => {
   return (
     <div>
-      <NavigationBar />
+      <Homepage />
     </div>
   );
 };
