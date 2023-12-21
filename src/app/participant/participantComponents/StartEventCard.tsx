@@ -41,7 +41,7 @@ const StartEventCard: React.FC<EventProps> = ({
       setTimeLeft(timeLeftValue);
 
       // Check if the event has started
-      if (timeLeftValue === "Event started") {
+      if (timeLeftValue === "Start") {
         setEventStarted(true);
       }
     }, 1000);
@@ -54,7 +54,7 @@ const StartEventCard: React.FC<EventProps> = ({
     const difference = startTime.getTime() - now.getTime();
 
     if (difference <= 0) {
-      return "Event started";
+      return "Start";
     }
 
     const days = Math.floor(difference / (1000 * 60 * 60 * 24));
