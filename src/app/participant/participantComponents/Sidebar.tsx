@@ -1,40 +1,84 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import {
   ChevronLeft,
-  Folders,
-  Settings,
-  User,
-  Calendar,
-  Search,
-  Folder,
   Pilcrow,
-} from "lucide-react"; // Import Lucide React icons
+  LayoutDashboard,
+  Joystick,
+  SettingsIcon,
+  LogOutIcon,
+  UserIcon,
+  PlayIcon,
+  EyeIcon,
+} from "lucide-react";
 import { useState } from "react";
 
+import Link from "next/link";
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
+  const [selectedMenu, setSelectedMenu] = useState("Overview");
+
   const Menus = [
-    { title: "Dashboard", icon: <User />, gap: false },
-    { title: "Inbox", icon: <Calendar />, gap: false },
-    { title: "Accounts", icon: <User />, gap: true },
-    { title: "Schedule", icon: <Calendar />, gap: false },
-    { title: "Search", icon: <Search />, gap: false },
-    { title: "Analytics", icon: <Calendar />, gap: false },
-    { title: "Files", icon: <Folder />, gap: true },
-    { title: "Setting", icon: <Settings />, gap: false },
+    {
+      title: "Overview",
+      icon: <LayoutDashboard />,
+      gap: false,
+      href: "/participant",
+    },
+    {
+      title: "Join Event",
+      icon: <Joystick />,
+      gap: false,
+      href: "/participant/joinevent",
+    },
+    {
+      title: "View Event Details",
+      icon: <EyeIcon />,
+      gap: false,
+      href: "/participant/vieweventdetails",
+    },
+    {
+      title: "Start Event",
+      icon: <PlayIcon />,
+      gap: false,
+      href: "/participant/startevent",
+    },
+
+    {
+      title: "Profile",
+      icon: <UserIcon />,
+      gap: true,
+      href: "/participant/profile",
+    },
+
+    {
+      title: "Setting",
+      icon: <SettingsIcon />,
+      gap: false,
+      href: "/participant/setting",
+    },
+    {
+      title: "Logout",
+      icon: <LogOutIcon />,
+      gap: true,
+      href: "/participant/login",
+    },
   ];
+
+  const handleMenuClick = (title: string) => {
+    setSelectedMenu(title);
+    // You can add additional logic here if needed
+  };
 
   return (
     <div className="flex">
       <div
         className={` ${
           open ? "w-64" : "w-20 "
-        } bg-blue-900 text-white h-screen p-5 pt-8 relative duration-300`}
+        } bg-blue-900 text-white h-screen p-5 pt-8 relative duration-300 `}
       >
         <ChevronLeft
           className={`absolute bg-black cursor-pointer -right-3 top-9 w-7 border-dark-purple
-           border-2 rounded-full  ${!open && "rotate-180"}`}
+           border-1 rounded-full  ${!open && "rotate-180"}`}
           onClick={() => setOpen(!open)}
         />
         <div className="flex gap-x-4 items-center">
@@ -57,13 +101,21 @@ const Sidebar = () => {
               key={index}
               className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 
               ${Menu.gap ? "mt-9" : "mt-2"} ${
-                index === 0 && "bg-light-white"
+                selectedMenu === Menu.title && "bg-black"
               } `}
             >
-              {Menu.icon}
-              <span className={`${!open && "hidden"} origin-left duration-200`}>
-                {Menu.title}
-              </span>
+              <Link
+                href={Menu.href}
+                className="flex items-center gap-x-4"
+                onClick={() => handleMenuClick(Menu.title)}
+              >
+                {Menu.icon}
+                <span
+                  className={`${!open && "hidden"} origin-left duration-200`}
+                >
+                  {Menu.title}
+                </span>
+              </Link>
             </li>
           ))}
         </ul>
