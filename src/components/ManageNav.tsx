@@ -57,6 +57,18 @@ const Navbar = () => {
               Judges
             </Link>
 
+            <Link
+              href="/organizer/manageEvent/additionalFeatures"
+              className={buttonVariants({
+                variant: "ghost",
+                size: "sm",
+              })}
+              onClick={() => handleButtonClick('addition')}
+              style={{ borderBottom: activeButton === 'addition' && '4px solid blue' }}
+            >
+              Additional Features
+            </Link>
+
           </div>
         </div>
       </MaxWidthWrapper>

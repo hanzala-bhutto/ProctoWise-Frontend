@@ -1,11 +1,26 @@
 {
     "competitions":[
         {
-            "competition_id":"",
-            "competition_name": "",
-            "start_date":"",
-            "end_date":"",
-            "Description":""
+            "competition_id":"1",
+            "competition_name": "Hackathon",
+            "start_date":"27-12-2023",
+            "end_date":"4-01-2024",
+            "Description":"this is a fun competition"
+        }
+        ,
+        {
+            "competition_id":"2",
+            "competition_name": "Speed Programming",
+            "start_date":"29-12-2023",
+            "end_date":"7-01-2024",
+            "Description":"Solve the most basic coding problems in the smallest time"
+        },
+        {
+            "competition_id":"3",
+            "competition_name": "Hiring contest",
+            "start_date":"4-01-2024",
+            "end_date":"10-01-2024",
+            "Description":"Solve the most basic coding problems and get the chance to land a job"
         }
     ],
 
@@ -19,19 +34,55 @@
 
     "participants":[
         {
-            "competition_id":"",
-            "email":"",
-            "name":"",
-            "invitation_status":""
+            "email":"john@gmail.com",
+            "name":"John Smith",
+            "invitation_status":"Uninvited"
+        },
+        {
+            "email":"abbas@gmail.com",
+            "name":"Abbas Ali",
+            "invitation_status":"Uninvited"
+        },
+        {
+            "email":"hanzala@gmail.com",
+            "name":"Hanzala",
+            "invitation_status":"Uninvited"
+        },
+        {
+            "email":"yousaf@gmail.com",
+            "name":"Yousaf Ahmed",
+            "invitation_status":"Uninvited"
         }
     ],
 
     "judges":[
         {
-            "competition_id":"",
-            "email":"",
-            "name":"",
-            "invitation_status":""
+            "email":"raza@gmail.com",
+            "name":"Raza Ali",
+            "invitation_status":"Uninvited"
+        },
+        {
+            "email":"irtiza@gmail.com",
+            "name":"Muhammad Irtiza",
+            "invitation_status":"Uninvited"
+        },
+        {
+            "email":"yousaf111@gmail.com",
+            "name":"Muhammad Yousaf",
+            "invitation_status":"Uninvited"
+        },
+        {
+            "email":"hanzala.bhutto@gmail.com",
+            "name":"Hanzala Bhutto",
+            "invitation_status":"Uninvited"
+        }
+    ]
+    ,
+    "organizers":[
+        {
+            "email":"naqviirtiza9@gmail.com",
+            "name":"S M Irtiza Aqa Naqvi",
+            "isAttending":"Yes"
         }
     ]
   }
