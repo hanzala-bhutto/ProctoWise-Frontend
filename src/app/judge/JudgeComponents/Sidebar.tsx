@@ -32,7 +32,7 @@ const Sidebar = () => {
       title: "Profile",
       icon: <UserIcon />,
       gap: true,
-      href: "/judge/profile",
+      href: "#",
     },
 
     {
@@ -45,6 +45,7 @@ const Sidebar = () => {
 
   const handleMenuClick = (title: string) => {
     setSelectedMenu(title);
+    console.log(title);
     // You can add additional logic here if needed
   };
 

@@ -6,7 +6,8 @@
       "description": "Description for Event 1",
       "content": "Content for Event 1",
       "isJoined": true,
-      "startTime": "2023-12-27T06:20:00.000Z"
+      "startTime": "2023-12-27T06:20:00.000Z",
+      "assignedJudges": [{ "judgeId": 1 }, { "judgeId": 2 }]
     },
     {
       "id": 2,
@@ -14,7 +15,8 @@
       "description": "Description for Event 2",
       "content": "Content for Event 2",
       "isJoined": false,
-      "startTime": "2024-02-01T08:30:00.000Z"
+      "startTime": "2024-02-01T08:30:00.000Z",
+      "assignedJudges": [{ "judgeId": 1 }]
     },
     {
       "id": 3,
@@ -22,7 +24,8 @@
       "description": "Description for Event 3",
       "content": "Content for Event 3",
       "isJoined": true,
-      "startTime": "2024-01-10T12:15:00.000Z"
+      "startTime": "2024-01-10T12:15:00.000Z",
+      "assignedJudges": [{ "judgeId": 2 }]
     },
     {
       "id": 4,
@@ -30,7 +33,8 @@
       "description": "Description for Event 4",
       "content": "Content for Event 4",
       "isJoined": false,
-      "startTime": "2024-02-22T18:00:00.000Z"
+      "startTime": "2024-02-22T18:00:00.000Z",
+      "assignedJudges": [{ "judgeId": 1 }, { "judgeId": 2 }]
     },
     {
       "id": 5,
@@ -38,7 +42,8 @@
       "description": "Description for Event 5",
       "content": "Content for Event 5",
       "isJoined": true,
-      "startTime": "2024-01-05T21:45:00.000Z"
+      "startTime": "2024-01-05T21:45:00.000Z",
+      "assignedJudges": [{ "judgeId": 2 }]
     },
     {
       "id": 6,
@@ -46,7 +51,8 @@
       "description": "Description for Event 6",
       "content": "Content for Event 6",
       "isJoined": true,
-      "startTime": "2024-02-30T03:20:00.000Z"
+      "startTime": "2024-02-30T03:20:00.000Z",
+      "assignedJudges": [{ "judgeId": 1 }, { "judgeId": 2 }]
     }
   ],
   "participants": [
@@ -59,6 +65,97 @@
       "name": "Jane Smith",
       "email": "jane.smith@example.com",
       "isAttending": false
+    }
+  ],
+  "participantList": [
+    {
+      "eventId": 1,
+      "participantId": 1,
+      "name": "Participant 1",
+      "email": "participant1@example.com"
+    },
+    {
+      "eventId": 1,
+      "participantId": 2,
+      "name": "Participant 2",
+      "email": "participant2@example.com"
+    },
+    {
+      "eventId": 1,
+      "participantId": 3,
+      "name": "Participant 3",
+      "email": "participant3@example.com"
+    },
+    {
+      "eventId": 1,
+      "participantId": 4,
+      "name": "Participant 4",
+      "email": "participant4@example.com"
+    },
+    {
+      "eventId": 1,
+      "participantId": 5,
+      "name": "Participant 5",
+      "email": "participant5@example.com"
+    },
+    {
+      "eventId": 1,
+      "participantId": 6,
+      "name": "Participant 6",
+      "email": "participant6@example.com"
+    },
+
+    {
+      "eventId": 1,
+      "participantId": 7,
+      "name": "Participant 7",
+      "email": "participant7@example.com"
+    },
+    {
+      "eventId": 1,
+      "participantId": 8,
+      "name": "Participant 8",
+      "email": "participant8@example.com"
+    },
+    {
+      "eventId": 1,
+      "participantId": 9,
+      "name": "Participant 9",
+      "email": "participant9@example.com"
+    },
+    {
+      "eventId": 1,
+      "participantId": 10,
+      "name": "Participant 10",
+      "email": "participant10@example.com"
+    }
+  ],
+  "judges": [
+    {
+      "judgeId": 1,
+      "name": "Hanzala",
+      "email": "hanzala@gmail.com",
+      "assignedevents": [
+        {
+          "eventId": 1
+        },
+        {
+          "eventId": 2
+        }
+      ]
+    },
+    {
+      "judgeId": 2,
+      "name": "Yousaf",
+      "email": "yousaf@gmail.com",
+      "assignedevents": [
+        {
+          "eventId": 3
+        },
+        {
+          "eventId": 6
+        }
+      ]
     }
   ]
 }
