@@ -1,7 +1,15 @@
+'use client'
 import { buttonVariants } from '@/components/ui/button';
 import React from 'react';
 import Im1 from './Images/im1';
+import { useRouter } from 'next/navigation';
 export default function(){
+    const router = useRouter();
+    function GO(event){
+        event.preventDefault();
+        router.push("/organizer/login");
+    }
+
     return(
     <div className="h-full bg-gray-400 dark:bg-gray-900">
 	
@@ -13,7 +21,7 @@ export default function(){
 				
 				<div className="w-full lg:w-6/12 bg-white dark:bg-gray-700 p-5 rounded-lg lg:rounded-l-none">
 					<h3 className="py-4 text-2xl text-center text-gray-800 dark:text-white">Create an Account!</h3>
-					<form className="px-8 pt-6 pb-8 mb-4 bg-white dark:bg-gray-800 rounded">
+					<form className="px-8 pt-6 pb-8 mb-4 bg-white dark:bg-gray-800 rounded" onSubmit={GO}>
 						<div className="mb-4 md:flex md:justify-between">
 							<div className="mb-4 md:mr-2 md:mb-0">
 								<label className="block mb-2 text-sm font-bold text-gray-700 dark:text-white" for="firstName">
@@ -80,11 +88,10 @@ export default function(){
 							</div>
 						</div>
 						<div className="mb-6 text-center">
-							<button 
+							<button type='submit'
                                 className={buttonVariants({
                                     size: "sm",
                                   })}
-                                type="submit"
                             >
                                 Register Account
                             </button>
@@ -98,7 +105,7 @@ export default function(){
 						</div>
 						<div className="text-center">
 							<a className="inline-block text-sm text-blue-500 dark:text-blue-500 align-baseline hover:text-blue-800"
-								href="/participant/login">
+								href="/organizer/login">
 								Already have an account? Login!
 							</a>
 						</div>
