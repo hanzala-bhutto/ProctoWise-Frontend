@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 import { cn } from "@/lib/utils";
-import Sidebar from "../participantComponents/Sidebar";
 
 export const metadata = {
   title: "Next.js",
@@ -21,7 +20,6 @@ export default function RootLayout({
         "font-sans antialiased grainy flex bg-gray-100 min-h-screen overflow-hidden"
       )}
     >
-      <Sidebar />
       <div className="h-screen flex-1 p-7 overflow-y-auto">{children}</div>
     </div>
   );

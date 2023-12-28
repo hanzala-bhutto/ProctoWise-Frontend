@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 import { cn } from "@/lib/utils";
-import Sidebar from "../participantComponents/Sidebar";
+import Sidebar from "../JudgeComponents/Sidebar";
 
 export const metadata = {
   title: "Next.js",

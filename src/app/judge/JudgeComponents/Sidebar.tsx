@@ -4,11 +4,8 @@ import {
   Pilcrow,
   LayoutDashboard,
   Joystick,
-  SettingsIcon,
   LogOutIcon,
   UserIcon,
-  PlayIcon,
-  EyeIcon,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -22,33 +19,27 @@ const Sidebar = () => {
       title: "Overview",
       icon: <LayoutDashboard />,
       gap: false,
-      href: "/participant",
+      href: "/judge",
     },
     {
-      title: "Join Event",
+      title: "Events Assignment",
       icon: <Joystick />,
       gap: false,
-      href: "/participant/joinevent",
-    },
-    {
-      title: "View Registered Events",
-      icon: <EyeIcon />,
-      gap: false,
-      href: "/participant/viewregisteredevents",
+      href: "/judge/eventsassignment",
     },
 
     {
       title: "Profile",
       icon: <UserIcon />,
       gap: true,
-      href: "/participant/profile",
+      href: "/judge/profile",
     },
 
     {
       title: "Logout",
       icon: <LogOutIcon />,
       gap: false,
-      href: "/participant/login",
+      href: "/judge/login",
     },
   ];
 

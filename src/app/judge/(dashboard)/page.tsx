@@ -1,4 +1,4 @@
-import MainHeader from "../participantComponents/MainHeader";
+import MainHeader from "../JudgeComponents/MainHeader";
 
 const page = () => {
   return (
@@ -8,9 +8,7 @@ const page = () => {
         <div className="flex flex-col space-y-6 md:space-y-0 md:flex-row justify-between">
           <div className="mr-6">
             <h1 className="text-4xl font-semibold mb-2">Overivew</h1>
-            <h2 className="text-gray-600 ml-0.5">
-              We Provide Free resources regarding web design and web development
-            </h2>
+            <h2 className="text-gray-600 ml-0.5">Judge Overview</h2>
           </div>
           <div className="flex flex-wrap items-start justify-end -mb-3">
             <button className="inline-flex px-5 py-3 text-purple-600 hover:text-purple-700 focus:text-purple-700 hover:bg-purple-100 focus:bg-purple-100 border border-purple-600 rounded-md mb-3">
@@ -45,7 +43,7 @@ const page = () => {
                   d="M12 6v6m0 0v6m0-6h6m-6 0H6"
                 />
               </svg>
-              Create new dashboard
+              Add Details
             </button>
           </div>
         </div>

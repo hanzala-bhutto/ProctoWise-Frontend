@@ -7,12 +7,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import PropTypes from "prop-types";
-import EventDetailsToggler from "./EventDetailsToggler";
-import PaymentToggler from "./PaymentToggler";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { MinusSquare } from "lucide-react";
+import { InfoIcon, MinusSquare } from "lucide-react";
 
 interface EventProps {
+  id: number;
   title: string;
   description: string;
   content: string;
@@ -20,6 +20,7 @@ interface EventProps {
 }
 
 const propTypes = {
+  id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
@@ -27,6 +28,7 @@ const propTypes = {
 };
 
 const EventCardDetails: React.FC<EventProps> = ({
+  id,
   title,
   description,
   content,
@@ -51,7 +53,15 @@ const EventCardDetails: React.FC<EventProps> = ({
           <Button className="mr-2">
             Leave <MinusSquare className="ml-2" />
           </Button>
-          <EventDetailsToggler />
+          <Button asChild>
+            <Link
+              href={`/participant/viewregisteredevents/${encodeURIComponent(
+                id
+              )}`}
+            >
+              Info <InfoIcon className="ml-2" />
+            </Link>
+          </Button>
         </p>
       </CardFooter>
     </Card>
