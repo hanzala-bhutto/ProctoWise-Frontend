@@ -62,7 +62,7 @@ export default function(){
                  
                   <div className="flex flex-col justify-center mb-12 pb-1 pt-1 text-center">
                   <Link
-                    href="/login" target="_blank"
+                    href="/organizer/dashboard" target="_blank"
                     className={buttonVariants({
                       size: "sm",
                     })}
