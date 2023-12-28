@@ -1,0 +1,38 @@
+{
+    "competitions":[
+        {
+            "competition_id":"",
+            "competition_name": "",
+            "start_date":"",
+            "end_date":"",
+            "Description":""
+        }
+    ],
+
+    "tasks": [
+      {
+        "competition_id":"",
+        "taskId": "",
+        "taskDefinition": ""
+      }
+    ],
+
+    "participants":[
+        {
+            "competition_id":"",
+            "email":"",
+            "name":"",
+            "invitation_status":""
+        }
+    ],
+
+    "judges":[
+        {
+            "competition_id":"",
+            "email":"",
+            "name":"",
+            "invitation_status":""
+        }
+    ]
+  }
+  
