@@ -4,7 +4,6 @@ import OrganzierSection from "@/sections/OrganzierSection";
 import ParticipantSection from "@/sections/ParticipantSection";
 import { buttonVariants } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import ValuePropositionSection from "@/sections/ValuePropositionSection";
 
@@ -39,7 +38,7 @@ export default function Home() {
             size: "lg",
             className: "mt-5",
           })}
-          href="#pricing"
+          href="/pricing"
           target="_blank"
         >
           Get Started <ArrowRight className="ml-2 h-5 w-5" />
