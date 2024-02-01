@@ -1,11 +1,102 @@
-import { buttonVariants } from '@/components/ui/button';
-import Link from 'next/link';
-import React from 'react';
+'use client';
 
+import { buttonVariants } from '@/components/ui/button';
+import React from 'react';
+import { setAuth } from '@/redux/authSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/store';
+import { useUserLoginMutation } from '@/services/auth.service';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation'
+import { useEffect, useRef, useState } from 'react';
+
+interface User{
+  id: string;
+  name: string;
+  email: string;
+}
+
+interface ILoginForm {
+    email: string,
+    password: string,
+    rememberMe: boolean
+}
+
+interface ILoginResponse {
+    jwt: string,
+    user: User
+}
 
   
 export default function(){
-    
+
+    const [
+      loginUser, // This is the mutation trigger
+    ] = useUserLoginMutation()
+
+  const dispatch = useAppDispatch();
+
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      // router?.push(protectedRoutes.DASHBOARD);
+    }
+  },[isAuthenticated, router])
+
+  const formRef = useRef<HTMLFormElement>(null);
+  const [form, setForm] = useState<ILoginForm>({
+  email: '',
+  password: '',
+  rememberMe: false,
+  });
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const { target } = event;
+  const { name, value } = target;
+
+  setForm({
+    ...form,
+    [name]: value,
+  });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+  // for loop for Form 
+  Object.keys(form).forEach((key) => {
+      if(!form[key as keyof ILoginForm]){
+          // eslint-disable-next-line no-console
+          console.log('undefined');
+          return;
+      }
+  });
+
+  // // eslint-disable-next-line no-console
+  console.log(form);
+
+  const formData = {
+    email: form.email,
+    password: form.password,
+  }
+
+  const response : ILoginResponse | unknown = await loginUser(formData).unwrap();
+
+  // // eslint-disable-next-line no-console
+  // console.log(response);
+  if(response){
+    dispatch(setAuth(response as ILoginResponse));
+      alert('success');
+      return;
+  }
+  else{
+    alert('error');
+    return;
+  }
+  };
+
     return(
         
   <div className="container h-full p-5">
@@ -29,19 +120,26 @@ export default function(){
                   </h4>
                 </div>
 
-                <form>
+                <form
+                  ref={formRef}
+                  onSubmit={handleSubmit}
+                >
                   <p className="mb-4">Please login to your account</p>
                  
                   <div className="relative mb-4" data-te-input-wrapper-init>
                     <input
-                      type="text"
+                      type="email"
+                      name="email"
+                      value={form.email}
+                      onChange={handleChange}
+                      required
                       className="shadow-lg peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
                       id="exampleFormControlInput1"
-                      placeholder="Username" />
+                      placeholder="email" />
                     <label
                       for="exampleFormControlInput1"
                       className="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
-                      >Username
+                      >Email
                     </label>
                   </div>
 
@@ -49,6 +147,9 @@ export default function(){
                   <div className="relative mb-4" data-te-input-wrapper-init>
                     <input
                       type="password"
+                      name="password"
+                      value={form.password}
+                      onChange={handleChange}                      
                       className="shadow-lg peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
                       id="exampleFormControlInput11"
                       placeholder="Password" />
@@ -61,14 +162,11 @@ export default function(){
 
                  
                   <div className="flex flex-col justify-center mb-12 pb-1 pt-1 text-center">
-                  <Link
-                    href="/login" target="_blank"
-                    className={buttonVariants({
-                      size: "sm",
-                    })}
+                  <button className='w-full bg-black text-white p-1 rounded-xl'
+                  type="submit"
                   >
                     Log in
-                  </Link>
+                  </button>
 
                     <a href="#!" className='mt-4'>Forgot password?</a>
                   </div>
