@@ -5,8 +5,10 @@ export const GLOBAL_PATH = 'http://localhost:5000';
 export enum apiPath {
   // AUTH
   IS_AUTHENTICATED = '/admin/authenticate',
-  LOG_IN = `/api/auth/judge/login`,
-  REGISTER = `/api/auth/judge/register`,
+  USER_LOG_IN = `/api/auth/judge/login`,
+  USER_REGISTER = `/api/auth/judge/register`,
+  ORG_LOG_IN = '/api/auth/org-login',
+  ORG_REGISTER = '/api/auth/org-register',
   LOG_OUT = `/signout`,
   RENEW_ACCESS_TOKEN = '/auth/renew-token',
   JUDGE_EVENT = `/api/event/judge`,

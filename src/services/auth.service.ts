@@ -5,7 +5,7 @@ import { Api } from './api';
 
 const userLoginRequest = (body: any) => {
     return {
-        url: `${GLOBAL_PATH}${apiPath.LOG_IN}`,
+        url: `${GLOBAL_PATH}${apiPath.USER_LOG_IN}`,
         method: 'POST',
         body: body
     }
@@ -13,7 +13,7 @@ const userLoginRequest = (body: any) => {
 
 const userRegisterRequest = (body: any) => {
     return {
-        url: `${GLOBAL_PATH}${apiPath.REGISTER}`,
+        url: `${GLOBAL_PATH}${apiPath.USER_REGISTER}`,
         method: 'POST',
         body: body
     }
@@ -22,6 +22,22 @@ const userRegisterRequest = (body: any) => {
 const userLogoutRequest = (body: any) => {
     return {
         url: `${GLOBAL_PATH}${apiPath.LOG_OUT}`,
+        method: 'POST',
+        body: body
+    }
+}
+
+const orgLoginRequest = (body: any) => {
+    return {
+        url: `${GLOBAL_PATH}${apiPath.ORG_LOG_IN}`,
+        method: 'POST',
+        body: body
+    }
+}
+
+const orgRegisterRequest = (body: any) => {
+    return {
+        url: `${GLOBAL_PATH}${apiPath.ORG_REGISTER}`,
         method: 'POST',
         body: body
     }
@@ -52,6 +68,23 @@ export const authApi = apiWithTags.injectEndpoints({
     }),
     userLogout: build.mutation({
         query: userLogoutRequest
+    }),
+    orgLogin: build.mutation({
+        query: orgLoginRequest,
+        transformResponse : (rawResult:any) => {
+            
+            // eslint-disable-next-line no-console
+            console.log(rawResult);
+            return rawResult.data;
+        },
+    }),
+    orgRegister: build.mutation({
+        query: orgRegisterRequest,
+        transformResponse : (rawResult:any) => {
+            // eslint-disable-next-line no-console
+            console.log(rawResult);
+            return rawResult.data;
+        },
     })
     })
 })
@@ -60,4 +93,6 @@ export const {
     useUserLoginMutation,
     useUserLogoutMutation,
     useUserRegisterMutation,
+    useOrgLoginMutation,
+    useOrgRegisterMutation
   } = authApi;
