@@ -89,6 +89,7 @@ export default function(){
   if(response){
     dispatch(setAuth(response as ILoginResponse));
       alert('success');
+      router.push('/judge');
       return;
   }
   else{

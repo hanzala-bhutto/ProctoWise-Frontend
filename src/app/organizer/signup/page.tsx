@@ -3,12 +3,86 @@ import { buttonVariants } from '@/components/ui/button';
 import React from 'react';
 import Im1 from './Images/im1';
 import { useRouter } from 'next/navigation';
+
+import { useOrgRegisterMutation } from '@/services/auth.service';
+import Link from 'next/link';
+import { useRef, useState } from 'react';
+
+
+interface IRegisterForm {
+    name: string,
+    email: string,
+    password: string,
+    confirmPass: string
+}
+
 export default function(){
     const router = useRouter();
     function GO(event){
         event.preventDefault();
         router.push("/organizer/login");
     }
+
+    const [
+        registerOrg, // This is the mutation trigger
+        ] = useOrgRegisterMutation()
+  
+    const formRef = useRef<HTMLFormElement>(null);
+    const [form, setForm] = useState<IRegisterForm>({
+      name: '',
+      email: '',
+      password: '',
+      confirmPass: ''
+    });
+  
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+      const { target } = event;
+      const { name, value } = target;
+  
+      setForm({
+        ...form,
+        [name]: value,
+      });
+      console.log(form);
+    };
+  
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+  
+      // for loop for Form 
+      Object.keys(form).forEach((key) => {
+          if(!form[key as keyof IRegisterForm]){
+              // eslint-disable-next-line no-console
+              console.log('undefined');
+              return;
+          }
+      });
+  
+      if (form.password !== form.confirmPass){
+            console.log(form.password, form.confirmPass);
+            alert('passwords dont match');
+            return;
+      }
+
+      // eslint-disable-next-line no-console
+      console.log(form);
+
+      const formSend = {
+        name: form.name,
+        email: form.email,
+        password: form.password
+      }
+  
+      const response = await registerOrg(formSend).unwrap();
+  
+      if(!response){
+          alert('error');
+          return;
+      }
+  
+    };
+  
+
 
     return(
     <div className="h-full bg-gray-400 dark:bg-gray-900">
@@ -21,21 +95,29 @@ export default function(){
 				
 				<div className="w-full lg:w-6/12 bg-white dark:bg-gray-700 p-5 rounded-lg lg:rounded-l-none">
 					<h3 className="py-4 text-2xl text-center text-gray-800 dark:text-white">Create an Account!</h3>
-					<form className="px-8 pt-6 pb-8 mb-4 bg-white dark:bg-gray-800 rounded" onSubmit={GO}>
-						<div className="mb-4 md:flex md:justify-between">
+					<form 
+                        className="px-8 pt-6 pb-8 mb-4 bg-white dark:bg-gray-800 rounded" onSubmit={GO}
+                        ref={formRef}
+                        onSubmit={handleSubmit}
+                        method="post"
+                        >
+						<div className="mb-4">
 							<div className="mb-4 md:mr-2 md:mb-0">
 								<label className="block mb-2 text-sm font-bold text-gray-700 dark:text-white" for="firstName">
-                                    First Name
+                                    User Name
                                 </label>
 								<input
                                     required
                                     className="w-full px-3 py-2 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                                    id="firstName"
+                                    id="username"
                                     type="text"
-                                    placeholder="First Name"
+                                    placeholder="User Name"
+                                    name="name"
+                                    value={form.name}
+                                    onChange={handleChange}
                                 />
 							</div>
-							<div className="md:ml-2">
+							{/* <div className="md:ml-2">
 								<label className="block mb-2 text-sm font-bold text-gray-700 dark:text-white" for="lastName">
                                     Last Name
                                 </label>
@@ -46,7 +128,7 @@ export default function(){
                                     type="text"
                                     placeholder="Last Name"
                                 />
-							</div>
+							</div> */}
 						</div>
 						<div className="mb-4">
 							<label className="block mb-2 text-sm font-bold text-gray-700 dark:text-white" for="email">
@@ -58,6 +140,10 @@ export default function(){
                                 id="email"
                                 type="email"
                                 placeholder="Email"
+                                name='email'
+                                placeholder="Email"
+                                value={form.email}
+                                onChange={handleChange}
                             />
 						</div>
 						<div className="mb-4 md:flex md:justify-between">
@@ -71,6 +157,9 @@ export default function(){
                                     id="password"
                                     type="password"
                                     placeholder="******************"
+                                    name="password"
+                                    value={form.password}
+                                    onChange={handleChange}
                                 />
 								<p className="text-xs italic text-red-500">Please choose a password.</p>
 							</div>
@@ -84,6 +173,9 @@ export default function(){
                                     id="c_password"
                                     type="password"
                                     placeholder="******************"
+                                    name='confirmPass'
+                                    value={form.confirmPass}
+                                    onChange={handleChange}
                                 />
 							</div>
 						</div>
