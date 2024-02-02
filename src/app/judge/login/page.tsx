@@ -5,7 +5,6 @@ import React from 'react';
 import { setAuth } from '@/redux/authSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { useUserLoginMutation } from '@/services/auth.service';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react';
 
