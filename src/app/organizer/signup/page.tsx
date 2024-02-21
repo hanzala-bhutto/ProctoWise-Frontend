@@ -96,7 +96,7 @@ export default function(){
 				<div className="w-full lg:w-6/12 bg-white dark:bg-gray-700 p-5 rounded-lg lg:rounded-l-none">
 					<h3 className="py-4 text-2xl text-center text-gray-800 dark:text-white">Create an Account!</h3>
 					<form 
-                        className="px-8 pt-6 pb-8 mb-4 bg-white dark:bg-gray-800 rounded" onSubmit={GO}
+                        className="px-8 pt-6 pb-8 mb-4 bg-white dark:bg-gray-800 rounded"
                         ref={formRef}
                         onSubmit={handleSubmit}
                         method="post"
@@ -104,7 +104,7 @@ export default function(){
 						<div className="mb-4">
 							<div className="mb-4 md:mr-2 md:mb-0">
 								<label className="block mb-2 text-sm font-bold text-gray-700 dark:text-white" for="firstName">
-                                    User Name
+                                    Name
                                 </label>
 								<input
                                     required
