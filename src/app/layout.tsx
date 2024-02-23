@@ -31,7 +31,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={cn('font-sans antialiased grainy', inter.className)}>
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
-            {router.includes('/organizer') ? null : <Navbar />}
             {children}
           </PersistGate>
         </Provider> 
