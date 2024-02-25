@@ -7,6 +7,7 @@ import Im1 from './Images/im1';
 import { useUserRegisterMutation } from '@/services/auth.service';
 import Link from 'next/link';
 import { useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 
 interface IRegisterForm {
@@ -29,6 +30,8 @@ export default function(){
       password: '',
       confirmPass: ''
     });
+
+    const router = useRouter();
   
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
       const { target } = event;
@@ -38,7 +41,7 @@ export default function(){
         ...form,
         [name]: value,
       });
-      console.log(form);
+    //   console.log(form);
     };
   
     const handleSubmit = async (e) => {
@@ -60,7 +63,7 @@ export default function(){
       }
 
       // eslint-disable-next-line no-console
-      console.log(form);
+    //   console.log(form);
 
       const formSend = {
         name: form.name,
@@ -70,11 +73,15 @@ export default function(){
   
       const response = await registerUser(formSend).unwrap();
   
-      if(!response){
-          alert('error');
+      if(response){
+          alert('success');
+          router.push('/judge/login');
           return;
       }
-  
+      else{
+        alert('error');
+        return;
+      }
     };
   
 
@@ -148,7 +155,7 @@ export default function(){
                                 </label>
 								<input
                                     required
-                                    className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 dark:text-white border border-red-500 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                    className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                                     id="password"
                                     type="password"
                                     name="password"
@@ -156,7 +163,7 @@ export default function(){
                                     value={form.password}
                                     onChange={handleChange}
                                 />
-								<p className="text-xs italic text-red-500">Please choose a password.</p>
+								{/* <p className="text-xs italic text-red-500">Please choose a password.</p> */}
 							</div>
 							<div className="md:ml-2">
 								<label className="block mb-2 text-sm font-bold text-gray-700 dark:text-white" for="c_password">
@@ -192,10 +199,11 @@ export default function(){
 							</a>
 						</div>
 						<div className="text-center">
-							<a className="inline-block text-sm text-blue-500 dark:text-blue-500 align-baseline hover:text-blue-800"
-								href="/judge/login">
+                         <Link href="/judge/login">
+							<p className="inline-block text-sm text-blue-500 dark:text-blue-500 align-baseline hover:text-blue-800">
 								Already have an account? Login!
-							</a>
+							</  p>
+                        </Link>
 						</div>
 					</form>
 				</div>
