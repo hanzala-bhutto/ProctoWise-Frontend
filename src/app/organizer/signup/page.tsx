@@ -75,10 +75,15 @@ export default function(){
   
       const response = await registerOrg(formSend).unwrap();
   
-      if(!response){
-          alert('error');
-          return;
-      }
+      if(response){
+        alert('success');
+        router.push('/organizer/login');
+        return;
+    }
+    else{
+      alert('error');
+      return;
+    }
   
     };
   
@@ -153,7 +158,7 @@ export default function(){
                                 </label>
 								<input
                                     required
-                                    className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 dark:text-white border border-red-500 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                    className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 dark:text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                                     id="password"
                                     type="password"
                                     placeholder="******************"
@@ -161,7 +166,7 @@ export default function(){
                                     value={form.password}
                                     onChange={handleChange}
                                 />
-								<p className="text-xs italic text-red-500">Please choose a password.</p>
+								{/* <p className="text-xs italic text-red-500">Please choose a password.</p> */}
 							</div>
 							<div className="md:ml-2">
 								<label className="block mb-2 text-sm font-bold text-gray-700 dark:text-white" for="c_password">
@@ -196,10 +201,11 @@ export default function(){
 							</a>
 						</div>
 						<div className="text-center">
-							<a className="inline-block text-sm text-blue-500 dark:text-blue-500 align-baseline hover:text-blue-800"
-								href="/organizer/login">
+                        <Link href="/organizer/login">
+							<p className="inline-block text-sm text-blue-500 dark:text-blue-500 align-baseline hover:text-blue-800">
 								Already have an account? Login!
-							</a>
+							</  p>
+                        </Link>
 						</div>
 					</form>
 				</div>

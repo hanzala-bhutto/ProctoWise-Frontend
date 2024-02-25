@@ -27,6 +27,7 @@ const Navbar = () => {
             </Link>
             <Link
               href="/login"
+              target="_blank"
               className={buttonVariants({
                 variant: "ghost",
                 size: "sm",
@@ -36,6 +37,7 @@ const Navbar = () => {
             </Link>
             <Link
               href="/signup"
+              target="_blank"
               className={buttonVariants({
                 size: "sm",
               })}
