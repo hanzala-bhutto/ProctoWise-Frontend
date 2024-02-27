@@ -27,6 +27,22 @@ const userLogoutRequest = (body: any) => {
     }
 }
 
+const participantLoginRequest = (body: any) => {
+    return {
+        url: `${GLOBAL_PATH}${apiPath.PARTICIPANT_LOG_IN}`,
+        method: 'POST',
+        body: body
+    }
+}
+
+const participantRegisterRequest = (body: any) => {
+    return {
+        url: `${GLOBAL_PATH}${apiPath.PARTICIPANT_REGISTER}`,
+        method: 'POST',
+        body: body
+    }
+}
+
 const orgLoginRequest = (body: any) => {
     return {
         url: `${GLOBAL_PATH}${apiPath.ORG_LOG_IN}`,
@@ -42,6 +58,8 @@ const orgRegisterRequest = (body: any) => {
         body: body
     }
 }
+
+
 
 const apiWithTags = Api.enhanceEndpoints({
     addTagTypes: ServiceTagTypes.LOGIN_SERVICE,
@@ -69,6 +87,23 @@ export const authApi = apiWithTags.injectEndpoints({
     userLogout: build.mutation({
         query: userLogoutRequest
     }),
+    participantLogin: build.mutation({
+        query: participantLoginRequest,
+        transformResponse : (rawResult:any) => {
+            
+            // eslint-disable-next-line no-console
+            console.log(rawResult);
+            return rawResult.data;
+        },
+    }),
+    participantRegister: build.mutation({
+        query: participantRegisterRequest,
+        transformResponse : (rawResult:any) => {
+            // eslint-disable-next-line no-console
+            console.log(rawResult);
+            return rawResult.data;
+        },
+    }),
     orgLogin: build.mutation({
         query: orgLoginRequest,
         transformResponse : (rawResult:any) => {
@@ -93,6 +128,8 @@ export const {
     useUserLoginMutation,
     useUserLogoutMutation,
     useUserRegisterMutation,
+    useParticipantLoginMutation,
+    useParticipantRegisterMutation,
     useOrgLoginMutation,
     useOrgRegisterMutation
   } = authApi;
