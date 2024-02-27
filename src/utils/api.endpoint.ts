@@ -7,6 +7,8 @@ export enum apiPath {
   IS_AUTHENTICATED = '/admin/authenticate',
   USER_LOG_IN = `/api/auth/judge/login`,
   USER_REGISTER = `/api/auth/judge/register`,
+  PARTICIPANT_LOG_IN = `/api/auth/participant/login`,
+  PARTICIPANT_REGISTER = `/api/auth/participant/register`,
   ORG_LOG_IN = '/api/auth/org-login',
   ORG_REGISTER = '/api/auth/org-register',
   LOG_OUT = `/signout`,
