@@ -2,10 +2,12 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { Api } from '../services/api';
 import authReducer from './authSlice';
+import taskReducer from './taskSlice'
 
 import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE, persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import taskSlice from './taskSlice';
 
 
 const persistConfig = {
@@ -17,16 +19,21 @@ const persistConfig = {
 const rootReducer = combineReducers({
   [Api.reducerPath]: Api.reducer,  
   auth: authReducer,
+  tasks: taskReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 const store = configureStore({
-  reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: {
-    ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-  },}).concat(Api.middleware),
-});
+    reducer: persistedReducer,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: {
+      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+    },}).concat(Api.middleware),
+  }
+  ,
+  
+
+);
 
 const persistor = persistStore(store)
 
