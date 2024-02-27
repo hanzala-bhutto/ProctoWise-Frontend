@@ -1,5 +1,7 @@
 'use client'
+import { useAppSelector } from '@/redux/store';
 import React, { useState } from 'react';
+// import { useSelector } from 'react-redux';
 
 const CreateTaskPage = () => {
   const [task, setTask] = useState({
@@ -8,6 +10,10 @@ const CreateTaskPage = () => {
     taskDefinition: '',
     usecases: [],
   });
+
+  const eventID = useAppSelector((state)=>state.tasks.eventID);
+  console.log("you" + eventID);
+
 
   const addUsecase = () => {
     setTask((prevTask) => ({
@@ -45,7 +51,7 @@ const CreateTaskPage = () => {
       <form>
         <div className="mb-4">
           <label htmlFor="description" className="block text-sm font-medium text-gray-600">
-            Task
+            Task {eventID}
           </label>
           <textarea
             id="task"
