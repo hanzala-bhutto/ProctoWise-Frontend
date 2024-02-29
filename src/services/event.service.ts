@@ -10,6 +10,13 @@ const judgeEventRequest = (id: string) => {
     }
 }
 
+const participantEventRequest = (id: string) => {
+    return {
+        url: `${GLOBAL_PATH}${apiPath.PARTICIPANT_EVENT}/${id}`,
+        method: 'GET',
+    }
+}
+
 const createEventRequest = (body: any) => {
     return {
         url: `${GLOBAL_PATH}${apiPath.CREATE_EVENT}`,
@@ -56,7 +63,16 @@ export const authApi = apiWithTags.injectEndpoints({
             return rawResult;
         },
     }),
-    
+    participantEvents: build.query({
+        query: participantEventRequest,
+        transformResponse : (rawResult:any) => {
+            
+            // eslint-disable-next-line no-console
+            console.log(rawResult);
+            return rawResult;
+        },
+    }),
+
     createEvents: build.mutation({
         query: createEventRequest,
         transformResponse : (rawResult:any) => {
@@ -96,6 +112,7 @@ export const authApi = apiWithTags.injectEndpoints({
 
 export const {
     useJudgeEventsQuery,
+    useParticipantEventsQuery,
     useCreateEventsMutation,
     useOrgGetCompDetailsQuery,
     useEventCreateTaskMutation,
