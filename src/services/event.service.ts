@@ -18,6 +18,22 @@ const createEventRequest = (body: any) => {
     }
 }
 
+const createTaskRequest = (body:any) => {
+    return{
+        url: `${GLOBAL_PATH}${apiPath.CREATE_TASK}`,
+        method:`POST`,
+        body:body
+    }
+}
+
+const createUseCaseRequest = (body:any)=>{
+    return{
+        url:  `${GLOBAL_PATH}${apiPath.ADD_USECASES}`,
+        method: "POST",
+        body:body
+    }
+}
+
 const orgGetCompDetailsRequest = (organizerID: string) => {
     return {
         url: `${GLOBAL_PATH}${apiPath.ORG_GET_COMP_DETAILS}/${organizerID}`,
@@ -57,6 +73,22 @@ export const authApi = apiWithTags.injectEndpoints({
             console.log(rawResult);
             return rawResult.data;
         }
+    }),
+
+    eventCreateTask:build.mutation({
+        query:createTaskRequest,
+        transformResponse: (rawResult:any)=>{
+            console.log(rawResult);
+            return rawResult
+        }
+    }),
+
+    addUseCase:build.mutation({
+        query:createUseCaseRequest,
+        transformResponse:(rawResult:any)=>{
+            console.log(rawResult);
+            return rawResult
+        }
     })
 
     })
@@ -66,5 +98,7 @@ export const {
     useJudgeEventsQuery,
     useCreateEventsMutation,
     useOrgGetCompDetailsQuery,
+    useEventCreateTaskMutation,
+    useAddUseCaseMutation
 
   } = authApi;
