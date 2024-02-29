@@ -2,18 +2,19 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { Api } from '../services/api';
 import authReducer from './authSlice';
-import taskReducer from './taskSlice'
+// import taskReducer from './taskSlice';
+import taskReducer from './taskSlice';
 
 import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE, persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import taskSlice from './taskSlice';
+// import taskSlice from './taskSlice';
 
 
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['api']
+  blacklist: ['api','tasks']
 }
 
 const rootReducer = combineReducers({

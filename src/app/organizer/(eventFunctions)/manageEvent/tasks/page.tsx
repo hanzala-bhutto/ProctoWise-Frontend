@@ -1,24 +1,44 @@
 'use client'
 import { useAppSelector } from '@/redux/store';
+import { useAddUseCaseMutation, useEventCreateTaskMutation } from '@/services/event.service';
 import React, { useState } from 'react';
 // import { useSelector } from 'react-redux';
 
+
+
+
+interface UseCase {
+  index: number;
+  description: string;
+}
+
 const CreateTaskPage = () => {
+
+  const eventID = useAppSelector((state)=>state.tasks.eventID);
+  console.log("you " + eventID);
+
+  const [
+    createTask,
+  ] = useEventCreateTaskMutation()
+
+  const [
+    addUseCase,
+  ]= useAddUseCaseMutation()
+
   const [task, setTask] = useState({
     competition_id: '',
     taskId: '',
     taskDefinition: '',
-    usecases: [],
+    usecases: [] as UseCase[],
   });
 
-  const eventID = useAppSelector((state)=>state.tasks.eventID);
-  console.log("you" + eventID);
+  var taskID;
 
 
   const addUsecase = () => {
     setTask((prevTask) => ({
       ...prevTask,
-      usecases: [...prevTask.usecases, { id: prevTask.usecases.length + 1, description: '' }],
+      usecases: [...prevTask.usecases, { index: prevTask.usecases.length + 1, description: '' }],
     }));
     console.log(task.usecases);
   };
@@ -39,12 +59,33 @@ const CreateTaskPage = () => {
     });
   };
 
-  const saveChanges = () => {
-    // Implement the logic to save changes to your data file
-    // For now, you can log the updated task object
-    console.log('Updated Task:', task);
+  const formData={
+    eventID:eventID,
+    description:task.taskDefinition,
+    name:"Question 1"
+  }
+  const useCaseData={
+    usecases:task.usecases,
+    taskID:taskID
+  }
+  const saveChanges = async () => {
+    const response = await createTask(formData).unwrap(); // Creating the task
+    const taskID = response.data._id; // Assigning the taskID from the response
+    const updatedUseCases = task.usecases.map(usecase => ({
+      index: usecase.index,
+      description: usecase.description,
+      taskID: taskID
+    }));
+  
+    try {
+      const response2 = await addUseCase(updatedUseCases).unwrap(); // Adding use case with updated taskID
+      console.log(response2); // Logging the response
+      console.log('Updated Task:', task.taskDefinition);
+    } catch (error) {
+      console.error('Error adding use case:', error); // Logging any errors
+    }
   };
-
+  
   return (
     <div className="mt-8">
       <h1 className="text-3xl font-semibold mb-4">Create Task</h1>
@@ -76,7 +117,7 @@ const CreateTaskPage = () => {
 
         {/* Display usecases */}
         {task.usecases.map((usecase, index) => (
-          <div key={usecase.id} className="mb-4">
+          <div key={usecase.index} className="mb-4">
             <label htmlFor={`usecase-${index}`} className="block text-sm font-medium text-gray-600">
               Usecase {index + 1}
             </label>
