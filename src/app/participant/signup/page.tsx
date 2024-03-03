@@ -237,16 +237,14 @@ const handleSubmit = async (e) => {
             </div>
 
             <div
-              className="flex items-center text-center justify-center w-full h-full bg-gray-400 dark:bg-gray-800 lg:w-6/12 bg-cover rounded-l-lg text-white"
+              className="flex flex-col gap-8 items-center text-center justify-center w-full h-full bg-gray-400 dark:bg-gray-800 lg:w-6/12 bg-cover rounded-l-lg text-white"
               style={{
                 background:
                   "linear-gradient(to right, #0074e4, #0083e4, #0096e4, #00aee4)",
               }}
             >
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. At
-              consectetur excepturi soluta, suscipit quam dolore ducimus
-              incidunt architecto placeat, voluptatem facere ad, neque aperiam?
-              Voluptatem nostrum sequi adipisci ea corrupti.
+              <h1 className="text-4xl font-bold">Participant Registration</h1>
+              <p className="px-2">To complete your registration, please fill out the form on the left with your username, email, password, and upload an image. Once you've provided all the required details, click the "Submit" button to finalize your registration.</p>
             </div>
           </div>
         </div>
