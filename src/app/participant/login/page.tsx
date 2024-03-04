@@ -183,19 +183,16 @@ export default function () {
               </div>
 
               <div
-                className="flex items-center rounded-b-lg lg:w-6/12 lg:rounded-r-lg lg:rounded-bl-none"
+                className="flex items-center text-center rounded-b-lg lg:w-6/12 lg:rounded-r-lg lg:rounded-bl-none"
                 style={{
                   background:
                     "linear-gradient(to right, #0074e4, #0083e4, #0096e4, #00aee4)",
                 }}
               >
-                <div className="px-4 py-6 text-white md:mx-6 md:p-12">
-                  <h4 className="mb-6 text-xl font-semibold">Participant</h4>
-                  <p className="text-sm">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                <div className="flex flex-col gap-8 px-4 py-6 text-white md:mx-6 md:p-12">
+                  <h4 className="text-3xl font-semibold">Participant Login</h4>
+                  <p className="">
+                  To complete your login process, please fill out the form on the left with your email and password. Once you've provided all the required details, click the "Submit" button to login.
                   </p>
                 </div>
               </div>

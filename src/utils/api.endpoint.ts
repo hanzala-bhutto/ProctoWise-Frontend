@@ -14,6 +14,7 @@ export enum apiPath {
   LOG_OUT = `/signout`,
   RENEW_ACCESS_TOKEN = '/auth/renew-token',
   JUDGE_EVENT = `/api/event/judge`,
+  PARTICIPANT_EVENT = `/api/event/participant`,
   CREATE_EVENT = "/api/event/create_Event",
   ORG_GET_COMP_DETAILS='/api/organizer/org_get_comp_details',
   CREATE_TASK = "/api/event/create_task",
