@@ -27,7 +27,7 @@ interface ILoginResponse {
 }
 
   
-export default function(){
+export default function Login(){
 
     const [
       loginUser, // This is the mutation trigger

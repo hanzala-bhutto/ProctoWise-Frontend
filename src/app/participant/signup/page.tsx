@@ -19,7 +19,7 @@ interface IRegisterForm {
     url: string
 }
 
-export default function () {
+export default function Signup() {
 
   const [
     registerParticipant, // This is the mutation trigger

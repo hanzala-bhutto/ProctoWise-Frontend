@@ -16,7 +16,7 @@ interface IRegisterForm {
     confirmPass: string
 }
 
-export default function(){
+export default function Signup(){
     const router = useRouter();
     function GO(event){
         event.preventDefault();
@@ -146,7 +146,6 @@ export default function(){
                                 type="email"
                                 placeholder="Email"
                                 name='email'
-                                placeholder="Email"
                                 value={form.email}
                                 onChange={handleChange}
                             />
