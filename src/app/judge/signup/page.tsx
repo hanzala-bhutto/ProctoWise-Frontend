@@ -17,7 +17,7 @@ interface IRegisterForm {
     confirmPass: string
 }
 
-export default function(){
+export default function Signup() {
 
     const [
         registerUser, // This is the mutation trigger
