@@ -3,6 +3,14 @@ import { apiPath, GLOBAL_PATH } from '../utils/api.endpoint';
 import { ServiceTagTypes } from '../utils/tagTypes';
 import { Api } from './api';
 
+
+const findAllEventsRequest = () => {
+    return {
+        url: `${GLOBAL_PATH}${apiPath.ALL_EVENTS}`,
+        method: 'GET',
+    }
+}
+
 const judgeEventRequest = (id: string) => {
     return {
         url: `${GLOBAL_PATH}${apiPath.JUDGE_EVENT}/${id}`,
@@ -14,6 +22,13 @@ const participantEventRequest = (id: string) => {
     return {
         url: `${GLOBAL_PATH}${apiPath.PARTICIPANT_EVENT}/${id}`,
         method: 'GET',
+    }
+}
+
+const joinEvent = (body:any) => {
+    return {
+        url: `${GLOBAL_PATH}${apiPath.JOIN_EVENT}`,
+        method: 'POST',
     }
 }
 
@@ -54,6 +69,15 @@ const apiWithTags = Api.enhanceEndpoints({
 
 export const authApi = apiWithTags.injectEndpoints({
     endpoints: (build:any) => ({
+    findAllEvents: build.query({
+        query: findAllEventsRequest,
+        transformResponse : (rawResult:any) => {
+            
+            // eslint-disable-next-line no-console
+            console.log(rawResult);
+            return rawResult.data;
+        },
+    }),    
     judgeEvents: build.query({
         query: judgeEventRequest,
         transformResponse : (rawResult:any) => {
@@ -81,6 +105,15 @@ export const authApi = apiWithTags.injectEndpoints({
             console.log(rawResult);
             return rawResult;
         },
+    }),
+
+    joinEvent : build.mutation({
+        query: joinEvent,
+        transformResponse : (rawResult:any) => {
+
+            console.log(rawResult);
+            return rawResult;
+        }
     }),
 
     orgGetCompDetails:build.query({
@@ -113,6 +146,8 @@ export const authApi = apiWithTags.injectEndpoints({
 export const {
     useJudgeEventsQuery,
     useParticipantEventsQuery,
+    useFindAllEventsQuery,
+    useJoinEventMutation,
     useCreateEventsMutation,
     useOrgGetCompDetailsQuery,
     useEventCreateTaskMutation,
