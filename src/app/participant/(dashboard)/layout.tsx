@@ -18,11 +18,11 @@ export default function RootLayout({
   return (
     <div
       className={cn(
-        "font-sans antialiased grainy flex bg-gray-100 min-h-screen overflow-hidden"
+        "font-sans antialiased grainy flex bg-gray-100 min-h-screen w-screen overflow-hidden"
       )}
     >
       <Sidebar />
-      <div className="h-screen flex-1 p-7 overflow-y-auto">{children}</div>
+      <div className="h-screen w-screen flex-1 p-7 overflow-y-auto">{children}</div>
     </div>
   );
 }
