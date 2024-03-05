@@ -29,6 +29,7 @@ const joinEvent = (body:any) => {
     return {
         url: `${GLOBAL_PATH}${apiPath.JOIN_EVENT}`,
         method: 'POST',
+        body: body
     }
 }
 
@@ -111,7 +112,7 @@ export const authApi = apiWithTags.injectEndpoints({
         query: joinEvent,
         transformResponse : (rawResult:any) => {
 
-            console.log(rawResult);
+            // console.log(rawResult);
             return rawResult;
         }
     }),
