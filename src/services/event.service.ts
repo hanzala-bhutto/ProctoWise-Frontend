@@ -11,16 +11,16 @@ const findAllEventsRequest = () => {
     }
 }
 
-const judgeEventRequest = (id: string) => {
+const participantEventRequest = (id: string) => {
     return {
-        url: `${GLOBAL_PATH}${apiPath.JUDGE_EVENT}/${id}`,
+        url: `${GLOBAL_PATH}${apiPath.PARTICIPANT_EVENT}/${id}`,
         method: 'GET',
     }
 }
 
-const participantEventRequest = (id: string) => {
+const judgeEventRequest = (id: string) => {
     return {
-        url: `${GLOBAL_PATH}${apiPath.PARTICIPANT_EVENT}/${id}`,
+        url: `${GLOBAL_PATH}${apiPath.JUDGE_EVENT}/${id}`,
         method: 'GET',
     }
 }
@@ -94,7 +94,7 @@ export const authApi = apiWithTags.injectEndpoints({
             
             // eslint-disable-next-line no-console
             console.log(rawResult);
-            return rawResult;
+            return rawResult.data;
         },
     }),
 
