@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -11,8 +13,40 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useAppSelector } from "@/redux/store";
+import { useJoinEventMutation } from "@/services/event.service";
 
-const JoinToggler = () => {
+const JoinToggler = (id:any) => {
+
+  const participantID = useAppSelector((state) => state?.auth?.user?.id);
+
+  const [joinEvent] = useJoinEventMutation();
+
+
+  const joinEventHandler = async () => {
+
+    const eventID = id.id.id;
+
+    const joinEventData = {
+      eventID: eventID,
+      participantID: participantID
+    }
+
+    console.log(joinEventData);
+
+    const response : any = await joinEvent(joinEventData).unwrap(); 
+
+    if (response.success === true){
+      alert('joined successfully');
+    }
+    else{
+      alert(response.message);
+    }
+
+    console.log(response);
+
+  }
+
   return (
     <Tabs defaultValue="agreement" className="w-[400px]">
       <TabsList className="grid w-full grid-cols-3">
@@ -60,7 +94,7 @@ const JoinToggler = () => {
             </div>
           </CardContent>
           <CardFooter>
-            <Button>Submit</Button>
+            <Button onClick={()=>joinEventHandler()}>Join</Button>
           </CardFooter>
         </Card>
       </TabsContent>
@@ -87,7 +121,7 @@ const JoinToggler = () => {
           </CardFooter>
         </Card>
       </TabsContent>
-      <TabsContent value="invite">
+      {/* <TabsContent value="invite">
         <Card>
           <CardHeader>
             <CardTitle>Want to Invite Members?</CardTitle>
@@ -100,7 +134,7 @@ const JoinToggler = () => {
             <Button>Invite Member</Button>
           </CardFooter>
         </Card>
-      </TabsContent>
+      </TabsContent> */}
     </Tabs>
   );
 };
