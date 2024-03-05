@@ -1,34 +1,64 @@
+'use client';
+
 import EventCardDetails from "../../participantComponents/EventCardDetails";
 import MainHeader from "../../participantComponents/MainHeader";
 import eventData from "../../data/data.json";
+import { useAppSelector } from "@/redux/store";
+import { useParticipantEventsQuery } from "@/services/event.service";
+import { useEffect, useState } from "react";
 
-const page = () => {
+interface Event {
+  _id: number;
+  name: string;
+  description: string;
+}
+
+const RegisteredEvents = () => {
   interface EventProps {
     id: number;
     title: string;
     description: string;
-    content: string;
-    isJoined: boolean;
+    // content: string;
+    // isJoined: boolean;
   }
-  const events: EventProps[] = eventData.events;
+  // const events: EventProps[] = eventData.events;
+
+  const participantID = useAppSelector((state) => state.auth.user?.id);
+
+  const {data} = useParticipantEventsQuery(participantID);
+
+  const [events,setEvent] = useState<Event[]>([]);
+
+  useEffect(() => {
+    // console.log(data);
+    setEvent(data as Event[]);
+  },[data])
+
 
   return (
     <>
       <MainHeader />
       <div className="flex flex-row flex-wrap flex-1 mt-2">
-        {events.map((event, index) => (
+        {
+        events 
+        ? 
+        events.map((event, index) => (
           <EventCardDetails
             key={index}
-            id={event.id}
-            title={event.title}
+            id={event._id}
+            title={event.name}
             description={event.description}
-            content={event.content}
-            isJoined={event.isJoined}
+            // content={event.content}
+            // isJoined={event.isJoined}
           />
-        ))}
+        ))
+        :
+        <h1>No Registered Competitions Exist</h1>
+
+        }
       </div>
     </>
   );
 };
 
-export default page;
+export default RegisteredEvents;
