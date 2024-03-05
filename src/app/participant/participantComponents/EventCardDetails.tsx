@@ -15,41 +15,41 @@ interface EventProps {
   id: number;
   title: string;
   description: string;
-  content: string;
-  isJoined: boolean;
+  // content: string;
+  // isJoined: boolean;
 }
 
 const propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
-  isJoined: PropTypes.bool.isRequired,
+  // content: PropTypes.string.isRequired,
+  // isJoined: PropTypes.bool.isRequired,
 };
 
 const EventCardDetails: React.FC<EventProps> = ({
   id,
   title,
   description,
-  content,
-  isJoined,
+  // content,
+  // isJoined,
 }) => {
-  if (!isJoined) {
-    // If the event is not joined, don't render the card
-    return null;
-  }
+  // if (!isJoined) {
+  //   // If the event is not joined, don't render the card
+  //   return null;
+  // }
 
   return (
-    <Card className=" w-full sm:w-2/3 md:w-1/2 lg:w-1/3 xl:w-1/4 my-2 mx-2 bg-blue-900 text-white">
+    <Card className="flex flex-col w-full sm:w-2/3 md:w-1/2 lg:w-1/3 xl:w-1/4 my-2 mx-2 bg-blue-900 text-white">
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription>{description}</CardDescription>
       </CardHeader>
       <CardContent>
-        <p>{content}</p>
+        <p>id: {id}</p>
       </CardContent>
-      <CardFooter>
-        <p className="flex justify-center ">
+      <CardFooter className="mt-auto">
+        <p className="flex justify-center">
           <Button className="mr-2">
             Leave <MinusSquare className="ml-2" />
           </Button>

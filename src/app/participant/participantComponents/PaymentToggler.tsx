@@ -11,7 +11,7 @@ import {
 import { ArrowRight, CreditCardIcon, Info, XSquare } from "lucide-react";
 import JoinToggler from "./JoinToggler";
 
-const PaymentToggler = () => {
+const PaymentToggler = (id:any) => {
   return (
     <Dialog>
       <DialogTrigger>
@@ -20,7 +20,7 @@ const PaymentToggler = () => {
         </Button>
       </DialogTrigger>
       <DialogContent>
-        <JoinToggler />
+        <JoinToggler id={id}/>
       </DialogContent>
     </Dialog>
   );
