@@ -1,35 +1,95 @@
 'use client'
-import React, { useState } from "react";
-import datafile from "@/dataFile/datafile.json";
+import React, { useEffect, useState } from "react";
+import { useDeleteParticipantFromEventMutation, useJoinEventMutation, useParticipantDetailsQuery } from "@/services/event.service";
+import { useAppSelector } from "@/redux/store";
+
+
+interface Participant {
+  _id: string;
+  name: string;
+  email: string;
+  invitation_status: string;
+}
+
 
 const ParticipantsPage = () => {
-  const initialParticipants = datafile.participants.map((participant) => ({
-    ...participant,
-    invitation_status: "Uninvited",
-  }));
+  const [
+    insertParticipantEvent, // This is the mutation trigger
+  ] = useJoinEventMutation()
 
-  const [participants, setParticipants] = useState(initialParticipants);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [
+    deleteParticipant, // This is the mutation trigger
+  ] = useDeleteParticipantFromEventMutation()
+  const { data } = useParticipantDetailsQuery([]);
+  const [participants, setParticipants] = useState<Participant[]>([]); 
+  const [filteredParticipants, setfilteredParticipants] = useState<Participant[]>([]);
+  const eventID = useAppSelector((state)=>state.tasks.eventID);
+  useEffect(() => {
+    
+    if (data) {
+      console.log("hello " + data);
+      const initialParticipants = data.map((participant) => ({
+        ...participant,
+        invitation_status: "Uninvited",
+      }));
+      setParticipants(initialParticipants); 
+      setfilteredParticipants(initialParticipants);
+    }
+  }, [data]); 
 
-  const handleInviteRemove = (participantEmail) => {
-    setParticipants((prevParticipants) =>
-      prevParticipants.map((participant) =>
-        participant.email === participantEmail
-          ? {
-              ...participant,
-              invitation_status:
-                participant.invitation_status === "Uninvited"
-                  ? "Invited"
-                  : "Uninvited",
-            }
-          : participant
-      )
-    );
+  // Handler to invite or remove participant
+  const handleInviteRemove = async(participantID:string) => {
+    if (participants.find((participant) => participant._id === participantID)?.invitation_status === "Uninvited") {
+      const formData={
+        participantID: participantID,
+        eventID: eventID
+      }
+      const response = await insertParticipantEvent(formData).unwrap();
+      console.log(response);
+    }
+
+    else if(participants.find((participant) => participant._id === participantID)?.invitation_status === "Invited"){
+      const formData={
+        participantID: participantID,
+        eventID: eventID
+      }
+      console.log(formData);
+      const response = await deleteParticipant(formData).unwrap();
+      console.log(response);
+    }
+    setfilteredParticipants((prevParticipants) =>
+    prevParticipants.map((participant) =>
+      participant._id === participantID
+        ? {
+            ...participant,
+            invitation_status:
+              participant.invitation_status === "Uninvited"
+                ? "Invited"
+                : "Uninvited"
+          }
+        : participant
+    )
+  );
+
+  setParticipants((prevParticipants) =>
+    prevParticipants.map((participant) =>
+      participant._id === participantID
+        ? {
+            ...participant,
+            invitation_status:
+              participant.invitation_status === "Uninvited"
+                ? "Invited"
+                : "Uninvited"
+          }
+        : participant
+    )
+  );
   };
 
-  const filteredParticipants = participants.filter((participant) =>
-    participant.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const search = (e:string) =>{
+    const filteredParticipants = participants.filter((participant) => participant.name.toLowerCase().includes(e.toLowerCase()))
+    setfilteredParticipants(filteredParticipants);
+  }
 
   return (
     <div className="mt-8">
@@ -40,8 +100,8 @@ const ParticipantsPage = () => {
         type="text"
         placeholder="Search by name..."
         className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-indigo-500 mb-4"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
+        // value={searchTerm}
+        onChange={(e) => search(e.target.value)}
       />
 
       {/* Participants Table */}
@@ -56,14 +116,15 @@ const ParticipantsPage = () => {
           </tr>
         </thead>
         <tbody>
-          {filteredParticipants.map((participant, index) => (
-            <tr key={participant.email}>
+          {filteredParticipants ?
+          filteredParticipants.map((participant, index) => (
+            <tr key={participant._id}>
               <td className="border border-gray-300 p-2">{index + 1}</td>
               <td className="border border-gray-300 p-2">{participant.name}</td>
               <td className="border border-gray-300 p-2">{participant.email}</td>
               <td className="border border-gray-300 p-2 flex justify-center">
                 <button
-                  onClick={() => handleInviteRemove(participant.email)}
+                  onClick={() => handleInviteRemove(participant._id)}
                   className={`${
                     participant.invitation_status === "Uninvited"
                       ? "bg-indigo-500 hover:bg-indigo-600"
@@ -79,7 +140,13 @@ const ParticipantsPage = () => {
                 {participant.invitation_status}
               </td>
             </tr>
-          ))}
+          ))
+          :
+          <div>
+            does not exist
+          </div>
+          }
+
         </tbody>
       </table>
     </div>
