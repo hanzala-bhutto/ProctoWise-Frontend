@@ -23,9 +23,11 @@ interface Competition {
 const CompetitionsList = () => {
   const router=useRouter();
   const dispatch=useAppDispatch();
-  let organizerID = "652d08760297ae65ff29d0b1";
+  let organizerID = useAppSelector((state) => state.auth.user?.id);
+  console.log(organizerID)
   const { data }: any = useOrgGetCompDetailsQuery(organizerID);
   const [displayCompetitions, setDisplayCompetitions] = useState<Competition[]>([]);
+  console.log(data);
 
   useEffect(() => {
     const showComp = async () => {

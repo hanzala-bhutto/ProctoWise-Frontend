@@ -27,7 +27,7 @@ interface ILoginResponse {
 }
 
   
-export default function Login(){
+const Login=()=>{
     
   const [
     loginOrg, // This is the mutation trigger
@@ -36,7 +36,7 @@ export default function Login(){
   const dispatch = useAppDispatch();
 
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
-
+  const orgID = useAppSelector((state) => state.auth.user?.id);
   const router = useRouter();
 
   useEffect(() => {
@@ -85,10 +85,18 @@ export default function Login(){
   const response : ILoginResponse | unknown = await loginOrg(formData).unwrap();
 
   // // eslint-disable-next-line no-console
-  // console.log(response);
+  
   if(response){
+    console.log(response + " kkk");
     dispatch(setAuth(response as ILoginResponse));
       alert('success');
+
+      
+      if(orgID){
+        localStorage.setItem("orgID",orgID);
+      }
+      console.log(localStorage.getItem("orgID") + " id reveal");
+      // console.log(response);
       router.push('/organizer/dashboard');
       return;
   }
@@ -205,3 +213,4 @@ export default function Login(){
   </div>
     )
 }
+export default Login;

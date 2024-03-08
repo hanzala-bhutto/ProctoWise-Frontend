@@ -21,5 +21,6 @@ export enum apiPath {
   ORG_GET_COMP_DETAILS='/api/organizer/org_get_comp_details',
   CREATE_TASK = "/api/event/create_task",
   ADD_USECASES = "/api/usecase/add_usecase",
-  GET_PARTICIPANTS="/api/participant/getParticipants"
+  GET_PARTICIPANTS="/api/participant/findAll",
+  DELETE_PARTICIPANT_FROM_EVENT="/api/event/deleteParticipantEvent",
 }

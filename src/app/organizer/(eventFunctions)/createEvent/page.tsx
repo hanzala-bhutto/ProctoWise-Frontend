@@ -39,6 +39,7 @@ import { useCreateEventsMutation } from '@/services/event.service';
     const dispatch = useAppDispatch();
 
     const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+    const organizerID = useAppSelector((state) => state.auth.user?.id);
 
     const router = useRouter();
 
@@ -89,7 +90,7 @@ import { useCreateEventsMutation } from '@/services/event.service';
       status: true,
       description:form.description,
       autoGrade:true,
-      organizerID:"652d08760297ae65ff29d0b1",
+      organizerID:organizerID,
       startDate:form.startDate,
       endDate:form.endDate
     }

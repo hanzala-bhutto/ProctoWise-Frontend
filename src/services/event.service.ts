@@ -64,12 +64,28 @@ const orgGetCompDetailsRequest = (organizerID: string) => {
     }
 }
 
+const participantDetailsRequest = ()=>{
+    return{
+        url: `${GLOBAL_PATH}${apiPath.GET_PARTICIPANTS}`,
+        method: 'GET',
+    }
+}
+
+const deleteParticipantFromEvent = (body:any) => {
+    return{
+        url: `${GLOBAL_PATH}${apiPath.DELETE_PARTICIPANT_FROM_EVENT}`,
+        method: 'DELETE',
+        body:body
+    }
+}
+
 const apiWithTags = Api.enhanceEndpoints({
     addTagTypes: ServiceTagTypes.LOGIN_SERVICE,
 });
 
 export const authApi = apiWithTags.injectEndpoints({
     endpoints: (build:any) => ({
+
     findAllEvents: build.query({
         query: findAllEventsRequest,
         transformResponse : (rawResult:any) => {
@@ -124,6 +140,13 @@ export const authApi = apiWithTags.injectEndpoints({
             return rawResult.data;
         }
     }),
+    participantDetails:build.query({
+        query:participantDetailsRequest,
+        transformResponse:(rawResult:any)=>{
+            console.log(rawResult);
+            return rawResult;
+        }
+    }),
 
     eventCreateTask:build.mutation({
         query:createTaskRequest,
@@ -139,7 +162,17 @@ export const authApi = apiWithTags.injectEndpoints({
             console.log(rawResult);
             return rawResult
         }
-    })
+    }),
+
+    deleteParticipantFromEvent: build.mutation({
+        query: deleteParticipantFromEvent,
+        transformResponse : (rawResult:any) => {
+            
+            // eslint-disable-next-line no-console
+            console.log(rawResult.data);
+            return rawResult;
+        },
+    }),
 
     })
 })
@@ -152,6 +185,8 @@ export const {
     useCreateEventsMutation,
     useOrgGetCompDetailsQuery,
     useEventCreateTaskMutation,
-    useAddUseCaseMutation
+    useAddUseCaseMutation,
+    useParticipantDetailsQuery,
+    useDeleteParticipantFromEventMutation,
 
   } = authApi;
