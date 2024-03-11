@@ -56,6 +56,7 @@ const EventCardDetails: React.FC<EventProps> = ({
 
     if (response.success){
       alert("Left Event Successfully");
+      window.location.reload();
     }
     else{
       // console.log(response.data.error);

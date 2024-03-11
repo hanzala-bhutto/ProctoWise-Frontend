@@ -11,6 +11,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import EventPaymentToggler from "./EventPaymentToggler";
+import { useAppSelector } from "@/redux/store";
+import { useValidatePaymentMutation } from "@/services/payment.service";
+import PaymentCard from "./PaymentCard";
 
 interface CostDetails {
   amount: number;
@@ -24,6 +27,12 @@ interface EventProps {
   startDate: string;
   endDate: string;
   costDetails: CostDetails;
+}
+
+interface PaymentEntry{
+  _id: string;
+  status: string;
+  chargeID: string;
 }
 
 function EventComponent({ event }: { event: EventProps }) {
@@ -95,6 +104,43 @@ function EventComponent({ event }: { event: EventProps }) {
   //   </div>
   // );
 
+  const participantID = useAppSelector((state) => state.auth.user?.id);
+
+  const [validatePayment] = useValidatePaymentMutation();
+  const [paymentEntry, setPaymentEntry] = useState<PaymentEntry>({
+    _id: '',
+    status: '',
+    chargeID: ''
+  }); 
+
+
+  useEffect( ()=> {
+    const fetchPayment = async () => {
+    try{
+      const paymentRequest = {
+        eventID: event._id,
+        participantID: participantID
+      }
+  
+      const response:any = await validatePayment(paymentRequest).unwrap();
+      // console.log(response);
+      if(response.success){
+        setPaymentEntry(response.data);
+      }
+      else{
+        alert(response.message);
+      }
+    }
+    catch(err){alert(err)};
+    }
+    fetchPayment();
+
+  },[])
+
+  // useEffect(()=>{
+  //     console.log(paymentEntry);
+  // },[paymentEntry])
+
   return (
     <>
     <h1 className="text-3xl">Event : {event.name}</h1>
@@ -146,7 +192,14 @@ function EventComponent({ event }: { event: EventProps }) {
           </div>
         </CardContent>
         <CardFooter>
+        {
+          paymentEntry?.status === 'paid' 
+          ?
           <Button>Start</Button>
+          :
+          <EventPaymentToggler event={event}/>
+        }
+
         </CardFooter>
       </Card>
     </TabsContent>
@@ -198,7 +251,13 @@ function EventComponent({ event }: { event: EventProps }) {
           </ul>
         </CardContent>
         <CardFooter>
+          {
+          paymentEntry?.status === 'paid' 
+          ?
+          <PaymentCard _id={paymentEntry._id} status={paymentEntry.status} chargeID={paymentEntry.chargeID}/>
+          :
           <EventPaymentToggler event={event}/>
+          }
           {/* <Button>Pay by Card</Button> */}
         </CardFooter>
       </Card>
