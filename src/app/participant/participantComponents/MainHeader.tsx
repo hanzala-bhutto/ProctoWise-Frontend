@@ -1,6 +1,27 @@
-import { Bell, User } from "lucide-react"; // Import Lucide-React icons
+'use client';
 
-const MainHeader: React.FC = () => {
+import { Bell, User } from "lucide-react"; // Import Lucide-React icons
+import { usePathname } from 'next/navigation';
+import { useState } from 'react';
+
+
+const MainHeader: React.FC = ({ events=[], setFilteredEvents=()=>{} }) => {
+
+  const pathname = usePathname()
+  const showSearchBar = pathname.includes('/viewregisteredevents') || pathname.includes('/joinevent');
+  // console.log(pathname,showSearchBar);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleSearch = (query:string) => {
+    // console.log(query);
+    const filteredEvents = events.filter((event:any) =>
+      event.name.toLowerCase().includes(query.toLowerCase()) ||
+      event.description.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredEvents(filteredEvents);
+    setSearchQuery(query);
+  };
+
   return (
     <header className="flex items-center h-20 px-6 sm:px-10 bg-white rounded-lg">
       <button className="block sm:hidden relative flex-shrink-0 p-2 mr-2 text-gray-600 hover:bg-gray-100 hover:text-gray-800 focus:bg-gray-100 focus:text-gray-800 rounded-full">
@@ -27,12 +48,25 @@ const MainHeader: React.FC = () => {
             />
           </svg>
         </span>
+        {showSearchBar
+        ?
         <input
           type="text"
           role="search"
           placeholder="Quick Search"
           className="py-2 pl-10 pr-4 w-full border-4 border-transparent placeholder-gray-400 focus:bg-gray-50 rounded-lg"
+          value={searchQuery} onChange={(e) => handleSearch(e.target.value)}
         />
+        :
+        <input
+        type="text"
+        role="search"
+        placeholder="Quick Search"
+        className="py-2 pl-10 pr-4 w-full border-4 border-transparent placeholder-gray-400 focus:bg-gray-50 rounded-lg"
+        disabled
+        />
+        }
+
       </div>
       <div className="flex flex-shrink-0 items-center ml-auto">
         <button className="inline-flex items-center p-2 hover:bg-gray-100 focus:bg-gray-100 rounded-lg">
