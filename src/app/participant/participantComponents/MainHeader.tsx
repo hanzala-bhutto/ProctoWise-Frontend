@@ -1,5 +1,6 @@
 'use client';
 
+import { useAppSelector } from "@/redux/store";
 import { Bell, User } from "lucide-react"; // Import Lucide-React icons
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
@@ -11,6 +12,8 @@ const MainHeader: React.FC = ({ events=[], setFilteredEvents=()=>{} }) => {
   const showSearchBar = pathname.includes('/viewregisteredevents') || pathname.includes('/joinevent');
   // console.log(pathname,showSearchBar);
   const [searchQuery, setSearchQuery] = useState('');
+
+  const participant = useAppSelector((state) => state?.auth?.user);
 
   const handleSearch = (query:string) => {
     // console.log(query);
@@ -72,8 +75,8 @@ const MainHeader: React.FC = ({ events=[], setFilteredEvents=()=>{} }) => {
         <button className="inline-flex items-center p-2 hover:bg-gray-100 focus:bg-gray-100 rounded-lg">
           <span className="sr-only">User Menu</span>
           <div className="hidden md:flex md:flex-col md:items-end md:leading-tight">
-            <span className="font-semibold">Byte Webster</span>
-            <span className="text-sm text-gray-600">Computer Programmer</span>
+            <span className="font-semibold">{participant ? participant.name : "Unknown"}</span>
+            <span className="text-sm text-gray-600">{participant ? participant.email : "Unknown@gmail.com"}</span>
           </div>
           <span className="h-12 w-12 ml-2 sm:ml-3 mr-2 bg-gray-100 rounded-full overflow-hidden">
             {/* <Image
