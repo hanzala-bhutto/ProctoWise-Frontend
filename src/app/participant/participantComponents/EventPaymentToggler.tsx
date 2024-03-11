@@ -145,6 +145,7 @@ const EventPaymentToggler = ({ event }: { event: EventProps }) => {
     // console.log(response);
     if(response){
         alert('payment successful');
+        window.location.reload();
         return;
     }
     else{

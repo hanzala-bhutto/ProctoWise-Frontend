@@ -16,6 +16,7 @@ export enum apiPath {
   ALL_EVENTS = `/api/event/findAll`,
   EVENT = '/api/event/findOne',
   MAKE_PAYMENT = '/api/payment/makePayment',
+  VALIDATE_PAYMENT = '/api/payment/validatePayment',
   PARTICIPANT_EVENT = `/api/event/participant`,
   JUDGE_EVENT = `/api/event/judge`,
   JOIN_EVENT = `/api/event/join`,
