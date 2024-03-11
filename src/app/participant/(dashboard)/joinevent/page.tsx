@@ -28,20 +28,22 @@ const JoinEvent = () => {
   const {data} = useFindAllEventsQuery([]);
 
   const [events,setEvent] = useState<Event[]>([]);
+  const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
 
   useEffect(() => {
     // console.log(data);
     setEvent(data as Event[]);
+    setFilteredEvents(data as Event[]);
   },[data])
 
   return (
     <>
-      <MainHeader />
+      <MainHeader events={events} setFilteredEvents={setFilteredEvents}/>
       <div className="flex flex-row flex-wrap flex-1">
         {
-        events
+        filteredEvents
         ?
-        events.map((event, index) => (
+        filteredEvents.map((event, index) => (
           <EventCard
             key={index}
             id={event._id}
