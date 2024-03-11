@@ -28,21 +28,23 @@ const RegisteredEvents = () => {
   const {data} = useParticipantEventsQuery(participantID);
 
   const [events,setEvent] = useState<Event[]>([]);
+  const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
 
   useEffect(() => {
     // console.log(data);
     setEvent(data as Event[]);
+    setFilteredEvents(data as Event[]);
   },[data])
 
 
   return (
     <>
-      <MainHeader />
+      <MainHeader events={events} setFilteredEvents={setFilteredEvents} />
       <div className="flex flex-row flex-wrap flex-1 mt-2">
         {
-        events 
+        filteredEvents 
         ? 
-        events.map((event, index) => (
+        filteredEvents.map((event, index) => (
           <EventCardDetails
             key={index}
             id={event._id}
