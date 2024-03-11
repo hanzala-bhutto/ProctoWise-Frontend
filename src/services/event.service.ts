@@ -40,6 +40,14 @@ const joinEvent = (body:any) => {
     }
 }
 
+const leaveEventRequest = (body:any)=>{
+    return{
+        url: `${GLOBAL_PATH}${apiPath.LEAVE_EVENT}`,
+        method: 'DELETE',
+        body: body
+    }
+}
+
 const createEventRequest = (body: any) => {
     return {
         url: `${GLOBAL_PATH}${apiPath.CREATE_EVENT}`,
@@ -208,6 +216,13 @@ export const authApi = apiWithTags.injectEndpoints({
         }
     }),
 
+    leaveEvent: build.mutation({
+        query: leaveEventRequest,
+        transformResponse: (rawResult:any)=>{
+            return rawResult
+        }
+    }), 
+
     orgGetCompDetails:build.query({
         query:orgGetCompDetailsRequest,
         transformResponse: (rawResult:any)=>{
@@ -321,6 +336,7 @@ export const {
     useFindAllEventsQuery,
     useFindEventDetailsQuery,
     useJoinEventMutation,
+    useLeaveEventMutation,
     useCreateEventsMutation,
     useOrgGetCompDetailsQuery,
     useEventCreateTaskMutation,

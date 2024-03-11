@@ -10,6 +10,8 @@ import PropTypes from "prop-types";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { InfoIcon, MinusSquare } from "lucide-react";
+import { useLeaveEventMutation } from "@/services/event.service";
+import { useAppSelector } from "@/redux/store";
 
 interface EventProps {
   id: number;
@@ -39,6 +41,29 @@ const EventCardDetails: React.FC<EventProps> = ({
   //   return null;
   // }
 
+  const participantID = useAppSelector((state) => state.auth.user?.id);
+
+  const [leaveEvent] = useLeaveEventMutation();
+
+  const leaveEventHandler = async () => {
+
+    const request = {
+      eventID: id,
+      participantID: participantID
+    }
+
+    const response:any  = await leaveEvent(request).unwrap();
+
+    if (response.success){
+      alert("Left Event Successfully");
+    }
+    else{
+      // console.log(response.data.error);
+      alert("Cannot Leave Event");
+    }
+
+  }
+
   return (
     <Card className="flex flex-col w-full sm:w-2/3 md:w-1/2 lg:w-1/3 xl:w-1/4 my-2 mx-2 bg-blue-900 text-white">
       <CardHeader>
@@ -50,7 +75,7 @@ const EventCardDetails: React.FC<EventProps> = ({
       </CardContent>
       <CardFooter className="mt-auto">
         <p className="flex justify-center">
-          <Button className="mr-2">
+          <Button onClick={()=> leaveEventHandler()} className="mr-2">
             Leave <MinusSquare className="ml-2" />
           </Button>
           <Button asChild>
