@@ -1,7 +1,7 @@
 'use client'
 import { useAppSelector } from '@/redux/store';
-import { useAddUseCaseMutation, useEventCreateTaskMutation } from '@/services/event.service';
-import React, { useState } from 'react';
+import { useAddUseCaseMutation, useDeleteTaskMutation, useDeleteUseCaseMutation, useEventCreateTaskMutation, useEventUpdateTaskMutation, useGetTaskQuery } from '@/services/event.service';
+import React, { useEffect, useState } from 'react';
 // import { useSelector } from 'react-redux';
 
 
@@ -11,28 +11,66 @@ interface UseCase {
   index: number;
   description: string;
 }
-
 const CreateTaskPage = () => {
 
   const eventID = useAppSelector((state)=>state.tasks.eventID);
+  const data = useGetTaskQuery(eventID);
   console.log("you " + eventID);
+  const [initialTask ,setInitialTask] = useState({
+    eventID: '',
+    _id: '',
+    description: '',
+    usecases: [] as UseCase[]
+  });
+
+  const [updatedTask, setUpdatedTask]=useState({
+    eventID: '',
+    _id: '',
+    description: '',
+    usecases: [] as UseCase[]
+  });
+
+  const [task, setTask] = useState({
+    eventID: '',
+    _id: '',
+    description: '',
+    usecases: [] as UseCase[]
+  });
+
+  useEffect(()=>{
+    if(data){
+      setInitialTask(data.data);
+      console.log("initial Task", initialTask);
+      setUpdatedTask(data.data);
+      console.log(data);
+    }
+    else{
+      console.log("data not found");
+    }
+  },[data])
+ 
 
   const [
     createTask,
   ] = useEventCreateTaskMutation()
 
   const [
+    updateTask,
+  ] = useEventUpdateTaskMutation()
+
+  const [
+    deleteUseCase,
+  ] = useDeleteUseCaseMutation()
+
+  const [
+    deletingTask,
+  ] = useDeleteTaskMutation()
+  const [
     addUseCase,
   ]= useAddUseCaseMutation()
 
-  const [task, setTask] = useState({
-    competition_id: '',
-    taskId: '',
-    taskDefinition: '',
-    usecases: [] as UseCase[],
-  });
-
-  var taskID;
+  
+  var taskID: any;
 
 
   const addUsecase = () => {
@@ -43,16 +81,48 @@ const CreateTaskPage = () => {
     console.log(task.usecases);
   };
 
-  const updateUsecase = (index, description) => {
+  const updatedAddUsecase = () => {
+    setUpdatedTask((prevTask) => ({
+      ...prevTask,
+      usecases: [...prevTask.usecases, { index: prevTask.usecases.length + 1, description: '' }],
+    }));
+    console.log(updatedTask.usecases);
+  };
+
+
+  const updateNewTaskUsecase = (index, description) => {
     setTask((prevTask) => {
-      const updatedUsecases = [...prevTask.usecases];
-      updatedUsecases[index].description = description;
+      const updatedUsecases = prevTask.usecases.map((usecase, i) => {
+        if (i === index) {
+          return { ...usecase, description: description }; // Update the description of the specific use case
+        }
+        return usecase;
+      });
+      return { ...prevTask, usecases: updatedUsecases };
+    });
+  };
+
+
+
+
+  const updateUsecase = (index, description) => {
+    setUpdatedTask((prevTask) => {
+      const updatedUsecases = prevTask.usecases.map((usecase, i) => {
+        if (i === index) {
+          return { ...usecase, description: description }; // Update the description of the specific use case
+        }
+        return usecase;
+      });
       return { ...prevTask, usecases: updatedUsecases };
     });
   };
 
   const removeUsecase = (index) => {
-    setTask((prevTask) => {
+    if(updatedTask.usecases.length<2){
+      alert("A Task should have atleast one usecase")
+      return
+    }
+    setUpdatedTask((prevTask) => {
       const updatedUsecases = [...prevTask.usecases];
       updatedUsecases.splice(index, 1);
       return { ...prevTask, usecases: updatedUsecases };
@@ -61,7 +131,7 @@ const CreateTaskPage = () => {
 
   const formData={
     eventID:eventID,
-    description:task.taskDefinition,
+    description:task.description,
     name:"Question 1"
   }
   const useCaseData={
@@ -69,6 +139,14 @@ const CreateTaskPage = () => {
     taskID:taskID
   }
   const saveChanges = async () => {
+    if(task.description===''){
+      alert("Task Cannot be empty")
+      return
+    }
+    if(task.usecases.length<1){
+      alert("No Usecases Specified")
+      return
+    }
     const response = await createTask(formData).unwrap(); // Creating the task
     const taskID = response.data._id; // Assigning the taskID from the response
     const updatedUseCases = task.usecases.map(usecase => ({
@@ -80,26 +158,70 @@ const CreateTaskPage = () => {
     try {
       const response2 = await addUseCase(updatedUseCases).unwrap(); // Adding use case with updated taskID
       console.log(response2); // Logging the response
-      console.log('Updated Task:', task.taskDefinition);
+      console.log('Updated Task:', task.description);
+      alert("Changes Saved");
     } catch (error) {
       console.error('Error adding use case:', error); // Logging any errors
     }
   };
+
+
+
+  const updateSaveChanges = async() =>{
+    if(updatedTask.description===''){
+      alert("Task Cannot be empty")
+      return
+    }
+    const formData={
+      taskID : initialTask._id,
+      description: updatedTask.description
+    }
+    const response = await updateTask(formData).unwrap();
+    const taskID=initialTask._id
+    const deletedUsecase= await deleteUseCase(taskID);
+    const updatedUseCases = updatedTask.usecases.map(usecase => ({
+      index: usecase.index,
+      description: usecase.description,
+      taskID: taskID
+    }));
+
+    try {
+      const response2 = await addUseCase(updatedUseCases).unwrap(); // Adding use case with updated taskID
+      console.log(response2); // Logging the response
+      console.log('Updated Task:', updatedTask.description);
+      setInitialTask(updatedTask);
+      setUpdatedTask(updatedTask);
+      alert("Changes Saved");
+    } catch (error) {
+      console.error('Error adding use case:', error); // Logging any errors
+    }
+  }
+
+
+  const deleteTask = async() =>{
+    const taskID = initialTask._id;
+    const deletedUsecase= await deleteUseCase(taskID);
+    const deletedTask= await deletingTask(taskID);
+    alert("deleted")
+
+  }
   
   return (
     <div className="mt-8">
       <h1 className="text-3xl font-semibold mb-4">Create Task</h1>
+
+      {!initialTask ?
       <form>
         <div className="mb-4">
           <label htmlFor="description" className="block text-sm font-medium text-gray-600">
-            Task {eventID}
+            Task {eventID} 
           </label>
           <textarea
             id="task"
             name="task"
             rows={4}
-            value={task.taskDefinition}
-            onChange={(e) => setTask({ ...task, taskDefinition: e.target.value })}
+            value={task.description}
+            onChange={(e) => setTask({ ...task, description: e.target.value })}
             className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-indigo-500"
             placeholder="Enter task"
           ></textarea>
@@ -126,7 +248,7 @@ const CreateTaskPage = () => {
               name={`usecase-${index}`}
               rows={2}
               value={usecase.description}
-              onChange={(e) => updateUsecase(index, e.target.value)}
+              onChange={(e) => updateNewTaskUsecase(index, e.target.value)}
               className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-indigo-500"
               placeholder={`Enter usecase ${index + 1}`}
             ></textarea>
@@ -150,6 +272,87 @@ const CreateTaskPage = () => {
           </button>
         </div>
       </form>
+
+          :
+
+
+          <form>
+            <div className="mb-4">
+              <label htmlFor="description" className="block text-sm font-medium text-gray-600">
+                Task {eventID}
+              </label>
+              <textarea
+                id="task"
+                name="task"
+                rows={4}
+                value={updatedTask.description}
+                onChange={(e) => setUpdatedTask({ ...updatedTask, description: e.target.value })}
+                className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-indigo-500"
+                placeholder="Enter task"
+              ></textarea>
+            </div>
+
+            <div className="mb-4">
+              <button
+                type="button"
+                onClick={updatedAddUsecase}
+                className="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 focus:outline-none focus:ring focus:border-indigo-700"
+              >
+                Add Usecase
+              </button>
+            </div>
+
+            {/* Display usecases */}
+            {updatedTask.usecases.map((usecase, index) => (
+              <div key={index} className="mb-4">
+                <label htmlFor={`usecase-${index}`} className="block text-sm font-medium text-gray-600">
+                  Usecase {index + 1}
+                </label>
+                <textarea
+                  id={`usecase-${index}`}
+                  name={`usecase-${index}`}
+                  rows={2}
+                  value={usecase.description}
+                  onChange={(e) => updateUsecase(index, e.target.value)}
+                  className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-indigo-500"
+                  placeholder={`Enter usecase ${index + 1}`}
+                ></textarea>
+                <button
+                  type="button"
+                  onClick={() => removeUsecase(index)}
+                  className="text-red-500 mt-2"
+                >
+                  Remove Usecase
+                </button>
+              </div>
+            ))}
+
+            <div className="mb-4 column">
+            <button
+            type="button"
+            onClick={deleteTask}
+            className="bg-red-500 mr-5 text-white px-4 py-2 rounded-md hover:bg-indigo-600 focus:outline-none focus:ring focus:border-indigo-700"
+          >
+            DeleteTask
+          </button>
+
+              <button
+                type="button"
+                onClick={updateSaveChanges}
+                className="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 focus:outline-none focus:ring focus:border-indigo-700"
+              >
+                Save Changes
+              </button>
+            </div>
+          </form>
+
+        
+      
+}
+
+
+
+
     </div>
   );
 };

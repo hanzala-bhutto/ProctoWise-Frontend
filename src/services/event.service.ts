@@ -78,11 +78,70 @@ const participantDetailsRequest = ()=>{
     }
 }
 
+const participantWRTEventDetailsRequest = (eventID: string)=>{
+    return{
+        url: `${GLOBAL_PATH}${apiPath.GET_PARTICIPANTS_WRT_EVENTS}/${eventID}`,
+        method: 'GET',
+    }
+}
+
+const judgeWRTEventDetailsRequest = (eventID: string)=>{
+    return{
+        url: `${GLOBAL_PATH}${apiPath.GET_JUDGE_WRT_EVENTS}/${eventID}`,
+        method: 'GET',
+    }
+}
+
+const getTaskRequest = (eventID: string)=>{
+    return{
+        url: `${GLOBAL_PATH}${apiPath.GET_TASK}/${eventID}`,
+        method: 'GET',
+    }
+}
+
+const deleteUseCaseRequest = (taskID:string)=>{
+    return{
+        url: `${GLOBAL_PATH}${apiPath.DELETE_USECASE}/${taskID}`,
+        method: 'DELETE',
+    }
+}
+
+const deleteTaskRequest = (taskID:string)=>{
+    return{
+        url: `${GLOBAL_PATH}${apiPath.DELETE_TASK}/${taskID}`,
+        method: 'DELETE',
+    }
+}
+
 const deleteParticipantFromEvent = (body:any) => {
     return{
         url: `${GLOBAL_PATH}${apiPath.DELETE_PARTICIPANT_FROM_EVENT}`,
         method: 'DELETE',
         body:body
+    }
+}
+
+const deleteJudgeFromEvent = (body:any) => {
+    return{
+        url: `${GLOBAL_PATH}${apiPath.DELETE_JUDGE_FROM_EVENT}`,
+        method: 'DELETE',
+        body:body
+    }
+}
+
+const eventUpdateTaskRequest = (body : any)=>{
+    return{
+        url: `${GLOBAL_PATH}${apiPath.EVENT_UPDATE_TASK}`,
+        method: 'POST',
+        body:body
+    }
+}
+
+const judgeJoinEvent = (body:any) => {
+    return {
+        url: `${GLOBAL_PATH}${apiPath.JUDGE_JOIN_EVENT}`,
+        method: 'POST',
+        body: body
     }
 }
 
@@ -164,6 +223,30 @@ export const authApi = apiWithTags.injectEndpoints({
         }
     }),
 
+    participantWRTEventsDetails:build.query({
+        query:participantWRTEventDetailsRequest,
+        transformResponse:(rawResult:any)=>{
+            console.log(rawResult.data);
+            return rawResult.data;
+        }
+    }),
+
+    judgeWRTEventsDetails:build.query({
+        query:judgeWRTEventDetailsRequest,
+        transformResponse:(rawResult:any)=>{
+            console.log(rawResult.data);
+            return rawResult.data;
+        }
+    }),
+
+    getTask: build.query({
+        query: getTaskRequest,
+        transformResponse:(rawResult:any)=>{
+            console.log(rawResult);
+            return rawResult.data;
+        }
+    }),
+
     eventCreateTask:build.mutation({
         query:createTaskRequest,
         transformResponse: (rawResult:any)=>{
@@ -190,6 +273,45 @@ export const authApi = apiWithTags.injectEndpoints({
         },
     }),
 
+    deletejudgeFromEvent: build.mutation({
+        query: deleteJudgeFromEvent,
+        transformResponse : (rawResult:any) => {
+            
+            // eslint-disable-next-line no-console
+            console.log(rawResult.data);
+            return rawResult;
+        },
+    }),
+
+    judgeJoinEvent : build.mutation({
+        query: judgeJoinEvent,
+        transformResponse : (rawResult:any) => {
+
+            // console.log(rawResult);
+            return rawResult;
+        }
+    }),
+
+    eventUpdateTask : build.mutation({
+        query: eventUpdateTaskRequest,
+        transformResponse: (rawResult:any)=>{
+            return rawResult
+        }
+    }),
+
+    deleteUseCase: build.mutation({
+        query: deleteUseCaseRequest,
+        transformResponse: (rawResult:any)=>{
+            return rawResult
+        }
+    }), 
+    deleteTask: build.mutation({
+        query: deleteTaskRequest,
+        transformResponse: (rawResult:any)=>{
+            return rawResult
+        }
+    }), 
+
     })
 })
 
@@ -205,5 +327,13 @@ export const {
     useAddUseCaseMutation,
     useParticipantDetailsQuery,
     useDeleteParticipantFromEventMutation,
+    useParticipantWRTEventsDetailsQuery,
+    useJudgeWRTEventsDetailsQuery,
+    useDeletejudgeFromEventMutation,
+    useJudgeJoinEventMutation,
+    useGetTaskQuery,
+    useEventUpdateTaskMutation,
+    useDeleteUseCaseMutation,
+    useDeleteTaskMutation
 
   } = authApi;

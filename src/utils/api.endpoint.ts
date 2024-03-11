@@ -19,10 +19,18 @@ export enum apiPath {
   PARTICIPANT_EVENT = `/api/event/participant`,
   JUDGE_EVENT = `/api/event/judge`,
   JOIN_EVENT = `/api/event/join`,
+  JUDGE_JOIN_EVENT= `/api/event/judgeInvite`,
   CREATE_EVENT = "/api/event/create_Event",
   ORG_GET_COMP_DETAILS='/api/organizer/org_get_comp_details',
   CREATE_TASK = "/api/event/create_task",
   ADD_USECASES = "/api/usecase/add_usecase",
   GET_PARTICIPANTS="/api/participant/findAll",
+  GET_TASK = '/api/task/getTask',
   DELETE_PARTICIPANT_FROM_EVENT="/api/event/deleteParticipantEvent",
+  DELETE_JUDGE_FROM_EVENT="/api/event/deleteJudgeEvent",
+  GET_PARTICIPANTS_WRT_EVENTS = "/api/participant/getParticipantsWRTEvents",
+  GET_JUDGE_WRT_EVENTS = "/api/judge/getJudgesWRTEvents",
+  EVENT_UPDATE_TASK = "/api/event/updateTask",
+  DELETE_USECASE = "/api/usecase/deleteUsecase",
+  DELETE_TASK = "/api/task/deleteTask"
 }

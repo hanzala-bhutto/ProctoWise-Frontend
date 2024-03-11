@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useState } from "react";
-import { useDeleteParticipantFromEventMutation, useJoinEventMutation, useParticipantDetailsQuery } from "@/services/event.service";
+import { useDeleteParticipantFromEventMutation, useJoinEventMutation, useParticipantDetailsQuery, useParticipantWRTEventsDetailsQuery } from "@/services/event.service";
 import { useAppSelector } from "@/redux/store";
 
 
@@ -20,20 +20,17 @@ const ParticipantsPage = () => {
   const [
     deleteParticipant, // This is the mutation trigger
   ] = useDeleteParticipantFromEventMutation()
-  const { data } = useParticipantDetailsQuery([]);
+  const eventID = useAppSelector((state)=>state.tasks.eventID);
+  const { data } = useParticipantWRTEventsDetailsQuery(eventID);
   const [participants, setParticipants] = useState<Participant[]>([]); 
   const [filteredParticipants, setfilteredParticipants] = useState<Participant[]>([]);
-  const eventID = useAppSelector((state)=>state.tasks.eventID);
+  
   useEffect(() => {
     
     if (data) {
       console.log("hello " + data);
-      const initialParticipants = data.map((participant) => ({
-        ...participant,
-        invitation_status: "Uninvited",
-      }));
-      setParticipants(initialParticipants); 
-      setfilteredParticipants(initialParticipants);
+      setParticipants(data); 
+      setfilteredParticipants(data);
     }
   }, [data]); 
 
@@ -92,7 +89,7 @@ const ParticipantsPage = () => {
   }
 
   return (
-    <div className="mt-8">
+    <div className="mt-8 mb-8">
       <h1 className="text-3xl font-semibold mb-4">Add Participants</h1>
 
       {/* Search Bar */}
