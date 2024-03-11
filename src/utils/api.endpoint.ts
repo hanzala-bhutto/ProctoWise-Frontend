@@ -19,6 +19,7 @@ export enum apiPath {
   PARTICIPANT_EVENT = `/api/event/participant`,
   JUDGE_EVENT = `/api/event/judge`,
   JOIN_EVENT = `/api/event/join`,
+  LEAVE_EVENT = `/api/event/leave`,
   JUDGE_JOIN_EVENT= `/api/event/judgeInvite`,
   CREATE_EVENT = "/api/event/create_Event",
   ORG_GET_COMP_DETAILS='/api/organizer/org_get_comp_details',
