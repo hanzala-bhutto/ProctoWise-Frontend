@@ -5,8 +5,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 First, clone the repository and navigate into the project directory:
 
 ```bash
-git clone <repository_url>
-cd <project_directory>
+git clone https://github.com/hanzala-bhutto/ProctoWise-Frontend.git
+cd ProctoWise-Frontend
 ```
 
 Then, intall the packages
