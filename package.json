@@ -22,6 +22,7 @@
     "@reduxjs/toolkit": "^1.9.6",
     "@uiw/codemirror-theme-vscode": "^4.21.24",
     "@uiw/react-codemirror": "^4.21.24",
+    "antd": "^5.15.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "firebase": "^10.8.0",

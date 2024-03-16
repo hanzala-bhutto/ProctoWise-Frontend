@@ -36,5 +36,6 @@ export enum apiPath {
   GET_JUDGE_WRT_EVENTS = "/api/judge/getJudgesWRTEvents",
   EVENT_UPDATE_TASK = "/api/event/updateTask",
   DELETE_USECASE = "/api/usecase/deleteUsecase",
-  DELETE_TASK = "/api/task/deleteTask"
+  DELETE_TASK = "/api/task/deleteTask",
+  GET_ALL_TASKS="/api/task/getAllTasks",
 }
