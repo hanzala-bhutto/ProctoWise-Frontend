@@ -4,6 +4,7 @@ import { Api } from '../services/api';
 import authReducer from './authSlice';
 // import taskReducer from './taskSlice';
 import taskReducer from './taskSlice';
+import singleTaskReducer from './singleTaskSlice';
 
 import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE, persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
@@ -14,13 +15,14 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['api','tasks']
+  blacklist: ['api','tasks', 'task']
 }
 
 const rootReducer = combineReducers({
   [Api.reducerPath]: Api.reducer,  
   auth: authReducer,
   tasks: taskReducer,
+  task: singleTaskReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

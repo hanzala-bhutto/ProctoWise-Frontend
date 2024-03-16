@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -195,7 +196,7 @@ function EventComponent({ event }: { event: EventProps }) {
         {
           paymentEntry?.status === 'paid' 
           ?
-          <Button>Start</Button>
+          <Button><Link href={`/participant/tasks`} target="blank">Start</Link></Button>
           :
           <EventPaymentToggler event={event}/>
         }

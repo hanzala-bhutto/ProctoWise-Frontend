@@ -28,6 +28,8 @@ export enum apiPath {
   ADD_USECASES = "/api/usecase/add_usecase",
   GET_PARTICIPANTS="/api/participant/findAll",
   GET_TASK = '/api/task/getTask',
+  GET_TASK_TASK_ID = '/api/task/getTaskByTaskID',
+  GET_ALL_TASKS_EVENT_ID = '/api/task/getAllTasksByEventID',
   DELETE_PARTICIPANT_FROM_EVENT="/api/event/deleteParticipantEvent",
   DELETE_JUDGE_FROM_EVENT="/api/event/deleteJudgeEvent",
   GET_PARTICIPANTS_WRT_EVENTS = "/api/participant/getParticipantsWRTEvents",
