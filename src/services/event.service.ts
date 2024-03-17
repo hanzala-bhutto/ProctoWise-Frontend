@@ -152,6 +152,12 @@ const judgeJoinEvent = (body:any) => {
         body: body
     }
 }
+const getAllTasksRequest = (eventID:string)=>{
+    return {
+        url: `${GLOBAL_PATH}${apiPath.GET_ALL_TASKS}/${eventID}`,
+        method: 'GET'
+    }
+}
 
 const apiWithTags = Api.enhanceEndpoints({
     addTagTypes: ServiceTagTypes.LOGIN_SERVICE,
@@ -326,6 +332,12 @@ export const authApi = apiWithTags.injectEndpoints({
             return rawResult
         }
     }), 
+    getAllTasks: build.query({
+        query: getAllTasksRequest,
+        transformresponse:(rawResult:any)=>{
+            return rawResult;
+        }
+    })
 
     })
 })
@@ -348,6 +360,7 @@ export const {
     useDeletejudgeFromEventMutation,
     useJudgeJoinEventMutation,
     useGetTaskQuery,
+    useGetAllTasksQuery,
     useEventUpdateTaskMutation,
     useDeleteUseCaseMutation,
     useDeleteTaskMutation

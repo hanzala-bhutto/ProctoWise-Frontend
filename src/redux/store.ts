@@ -15,7 +15,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['api','tasks', 'task']
+  blacklist: ['api', 'task']
 }
 
 const rootReducer = combineReducers({

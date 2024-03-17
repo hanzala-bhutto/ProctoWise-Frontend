@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from './store';
 const initialState = {
 
-    eventID: '65f41836b3b1c2ed0ee473af',
+    eventID: '',
 }
 
 const taskSlice = createSlice(
