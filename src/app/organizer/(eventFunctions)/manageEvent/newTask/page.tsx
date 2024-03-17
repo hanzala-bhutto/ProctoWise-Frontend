@@ -116,7 +116,7 @@ const newTask = () => {
       console.log(response2); // Logging the response
       console.log('Updated Task:', task.description);
       alert("Changes Saved");
-      router.push('tasks');
+      router.push('tasks')
       
     } catch (error) {
       console.error('Error adding use case:', error); // Logging any errors
