@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useAppSelector } from '@/redux/store';
 import React, { useEffect } from 'react';
 import { useGetAllTasksQuery } from '@/services/event.service';
+import { useRouter } from 'next/navigation';
 
 interface TaskDisplay  {
 _id:string,
@@ -11,6 +12,7 @@ description:string
 
 
 const Tasks = () => {
+  const router = useRouter();
   const eventID = useAppSelector((state) => state.tasks.eventID);
   const { data }: any  = useGetAllTasksQuery(eventID);
 
@@ -26,6 +28,10 @@ const Tasks = () => {
   const handleDeleteTask = async (taskId:string) => {
     // Implement deletion logic here
   };
+
+const newTask = () => {
+  router.push("newTask");
+}
 
   const TaskBox = ({ task }) => {
     return (
@@ -50,7 +56,9 @@ const Tasks = () => {
   return (
     <div className="mt-8">
       <h1 className="text-3xl font-semibold mb-4">Tasks for Event {eventID}</h1>
-
+      <button onClick={newTask} className="top-16 right-8 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 focus:outline-none focus:ring focus:border-green-700">
+        <h1><b>New Task</b></h1>
+      </button>
       <div className="flex flex-col items-center">
         {tasks ? (
           tasks.map((task:any, index) => (
@@ -60,10 +68,6 @@ const Tasks = () => {
           <div>error</div>
         )}
       </div>
-
-      <button className="fixed bottom-8 right-8 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 focus:outline-none focus:ring focus:border-green-700">
-        <h1><b>+</b></h1>
-      </button>
     </div>
   );
 };
