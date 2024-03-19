@@ -3,7 +3,7 @@ import { useAppSelector } from '@/redux/store';
 import { useAddUseCaseMutation, useDeleteTaskMutation, useDeleteUseCaseMutation, useEventCreateTaskMutation, useEventUpdateTaskMutation, useGetTaskQuery } from '@/services/event.service';
 import React, { useEffect, useState } from 'react';
 // import { useSelector } from 'react-redux';
-
+import { useRouter } from 'next/navigation';
 
 
 
@@ -13,9 +13,10 @@ interface UseCase {
 }
 
 const TaskDetails = () => {
-
+  const router = useRouter();
   const eventID = useAppSelector((state)=>state.tasks.eventID);
-  const data = useGetTaskQuery(eventID);
+  const TaskID = localStorage.getItem("taskID");
+  const data = useGetTaskQuery(TaskID);
   console.log("you " + eventID);
   const [initialTask ,setInitialTask] = useState({
     eventID: '',
@@ -193,6 +194,7 @@ const TaskDetails = () => {
       setInitialTask(updatedTask);
       setUpdatedTask(updatedTask);
       alert("Changes Saved");
+      router.push("tasks");
     } catch (error) {
       console.error('Error adding use case:', error); // Logging any errors
     }

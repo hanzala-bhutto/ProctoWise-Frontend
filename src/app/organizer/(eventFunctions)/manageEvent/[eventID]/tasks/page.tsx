@@ -32,6 +32,10 @@ const Tasks = () => {
 const newTask = () => {
   router.push("newTask");
 }
+const edit = async(taskID: string) =>{
+  localStorage.setItem("taskID", taskID);
+  router.push("taskDetails");
+}
 
   const TaskBox = ({ task }) => {
     return (
@@ -39,7 +43,7 @@ const newTask = () => {
         <h2 className="text-lg font-bold mb-2">Task {task.index}</h2>
         <p>{task.description}</p>
         <div className="mt-4 flex justify-between">
-          <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-700">
+          <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-700" onClick={()=>edit(task._id)}>
             Edit
           </button>
           <button

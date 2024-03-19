@@ -100,9 +100,9 @@ const judgeWRTEventDetailsRequest = (eventID: string)=>{
     }
 }
 
-const getTaskRequest = (eventID: string)=>{
+const getTaskRequest = (taskID: string)=>{
     return{
-        url: `${GLOBAL_PATH}${apiPath.GET_TASK}/${eventID}`,
+        url: `${GLOBAL_PATH}${apiPath.GET_TASK}/${taskID}`,
         method: 'GET',
     }
 }
