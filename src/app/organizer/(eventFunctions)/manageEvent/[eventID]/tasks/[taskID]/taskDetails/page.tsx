@@ -12,10 +12,10 @@ interface UseCase {
   description: string;
 }
 
-const TaskDetails = () => {
+const TaskDetails = ({ params }: { params: { taskID: string } }) => {
   const router = useRouter();
   const eventID = useAppSelector((state)=>state.tasks.eventID);
-  const TaskID = localStorage.getItem("taskID");
+  const TaskID = params.taskID;
   const data = useGetTaskQuery(TaskID);
   console.log("you " + eventID);
   const [initialTask ,setInitialTask] = useState({

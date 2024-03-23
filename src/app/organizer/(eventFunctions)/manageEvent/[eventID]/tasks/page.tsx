@@ -30,11 +30,11 @@ const Tasks = () => {
   };
 
 const newTask = () => {
-  router.push("newTask");
+  router.push("tasks/newTask");
 }
 const edit = async(taskID: string) =>{
-  localStorage.setItem("taskID", taskID);
-  router.push("taskDetails");
+  
+  router.push(`tasks/${taskID}/taskDetails`);
 }
 
   const TaskBox = ({ task }) => {
