@@ -5,9 +5,10 @@ import { buttonVariants } from "./ui/button";
 import MobileNav from "./MobileNav";
 import { ArrowRight, Underline } from "lucide-react";
 import { useState } from "react";
+import { useAppSelector } from "@/redux/store";
 
 const Navbar = () => {
-
+  const eventID = useAppSelector((state)=>state.tasks.eventID);
     const [activeButton, setActiveButton] = useState(null);
 
     const handleButtonClick = (buttonName:any) => {
@@ -22,7 +23,7 @@ const Navbar = () => {
 
           <div className="hidden items-center space-x-4 sm:flex">
             <Link
-              href="/organizer/manageEvent/tasks"
+              href={`/organizer/manageEvent/${eventID}/tasks`}
               className={buttonVariants({
                 variant: "ghost",
                 size: "sm",
@@ -34,7 +35,7 @@ const Navbar = () => {
             </Link>
 
             <Link
-              href="/organizer/manageEvent/participants"
+              href={`/organizer/manageEvent/${eventID}/participants`}
               className={buttonVariants({
                 variant: "ghost",
                 size: "sm",
@@ -46,7 +47,7 @@ const Navbar = () => {
             </Link>
 
             <Link
-              href="/organizer/manageEvent/judges"
+              href={`/organizer/manageEvent/${eventID}/judges`}
               className={buttonVariants({
                 variant: "ghost",
                 size: "sm",
@@ -58,7 +59,7 @@ const Navbar = () => {
             </Link>
 
             <Link
-              href="/organizer/manageEvent/additionalFeatures"
+              href={`/organizer/manageEvent/${eventID}/additionalFeatures`}
               className={buttonVariants({
                 variant: "ghost",
                 size: "sm",

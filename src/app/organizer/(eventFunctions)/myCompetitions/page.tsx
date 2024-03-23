@@ -42,7 +42,7 @@ const CompetitionsList = () => {
     console.log("hello")
     console.log(eventID);
     dispatch(setEventID({eventID:eventID}))
-    router.push("manageEvent/tasks")
+    router.push(`manageEvent/${eventID}/tasks`)
   }
 
   return (
@@ -51,7 +51,7 @@ const CompetitionsList = () => {
         <div key={competition?.competition_id} className="max-w-md bg-white shadow-lg rounded-xl overflow-hidden mx-auto mb-4 mt-10 transform transition-transform hover:scale-105">
           <div className="md:flex">
             <div className="md:flex-shrink-0">
-              {/* Any additional content for md:flex-shrink-0 */}
+             
             </div>
             <div className="p-8">
               <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
