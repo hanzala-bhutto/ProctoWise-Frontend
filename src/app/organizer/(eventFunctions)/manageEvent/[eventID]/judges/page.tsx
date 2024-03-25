@@ -26,7 +26,6 @@ const judgesPage = () => {
   const [filteredjudges, setfilteredjudges] = useState<judge[]>([]);
   
   useEffect(() => {
-    
     if (data) {
       console.log("hello " + data);
       setjudges(data); 
