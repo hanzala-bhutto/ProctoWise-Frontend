@@ -6,6 +6,8 @@ import Split from "react-split";
 import CodeMirror from "@uiw/react-codemirror";
 import { vscodeDark } from "@uiw/codemirror-theme-vscode";
 import { javascript } from "@codemirror/lang-javascript";
+import {python} from "@codemirror/lang-python";
+
 import EditorFooter from "./EditorFooter";
 import { Problem } from "@/utils/types/problem";
 // import { useAuthState } from "react-firebase-hooks/auth";
@@ -15,6 +17,7 @@ import { problems } from "@/utils/problems";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { useAppSelector } from "@/redux/store";
+import { useRunCodeMutation } from "@/services/submission.service";
 
 type PlaygroundProps = {
 	problem: Problem;
@@ -30,7 +33,10 @@ export interface ISettings {
 
 const Playground: React.FC<PlaygroundProps> = ({ problem, setSuccess, setSolved }) => {
 	const [activeTestCaseId, setActiveTestCaseId] = useState<number>(0);
+	const [testCase, setTestCase] = useState<any>([]);
 	let [userCode, setUserCode] = useState<string>(problem.starterCode);
+
+	const [run] =  useRunCodeMutation();
 
 	const [fontSize, setFontSize] = useLocalStorage("lcc-fontSize", "16px");
 
@@ -45,10 +51,43 @@ const Playground: React.FC<PlaygroundProps> = ({ problem, setSuccess, setSolved 
 	// 	query: { pid },
 	// } = useRouter();
 
+	const participantID = useAppSelector((state) => state?.auth?.user?.id);
 	const pid = useAppSelector((state) => state.task.taskID);
+	const eventID = useAppSelector((state) => state.tasks.eventID);
 
 
 	// console.log(pid);
+
+	const handleRun = async () => {
+		console.log(userCode);
+
+		const request = {
+			participantID: participantID,
+			eventID: eventID,
+			taskID: pid,
+			userCode: userCode
+		}
+
+		console.log(request);
+
+		const response:any = await run(request).unwrap();
+
+		if (response){
+			// console.log(response);
+
+			const useCase = response.map((useCase:any) => useCase.data);
+
+			setTestCase(useCase);
+
+			// console.log(useCase);
+
+			alert('Success');
+		}
+		else{
+			alert('Error');
+		}
+
+	}
 
 	const handleSubmit = async () => {
 		// if (!user) {
@@ -128,11 +167,11 @@ const Playground: React.FC<PlaygroundProps> = ({ problem, setSuccess, setSolved 
 						value={userCode}
 						theme={vscodeDark}
 						onChange={onChange}
-						extensions={[javascript()]}
+						extensions={[python()]}
 						style={{ fontSize: settings.fontSize }}
 					/>
 				</div>
-				<div className='w-full px-5 overflow-auto'>
+				<div className='w-full px-5 pb-10 overflow-auto'>
 					{/* testcase heading */}
 					<div className='flex h-10 items-center space-x-6'>
 						<div className='relative flex h-full flex-col justify-center cursor-pointer'>
@@ -150,7 +189,7 @@ const Playground: React.FC<PlaygroundProps> = ({ problem, setSuccess, setSolved 
 							>
 								<div className='flex flex-wrap items-center gap-y-4'>
 									<div
-										className={`font-medium items-center transition-all focus:outline-none inline-flex bg-dark-fill-3 hover:bg-dark-fill-2 relative rounded-lg px-4 py-1 cursor-pointer whitespace-nowrap
+										className={`before:inline-block before:mr-2 before:w-2 before:h-2 before:rounded-full before:bg-gray-500 font-medium items-center transition-all focus:outline-none inline-flex bg-dark-fill-3 hover:bg-dark-fill-2 relative rounded-lg px-4 py-1 cursor-pointer whitespace-nowrap
 										${activeTestCaseId === index ? "text-white" : "text-gray-500"}
 									`}
 									>
@@ -162,18 +201,40 @@ const Playground: React.FC<PlaygroundProps> = ({ problem, setSuccess, setSolved 
 					</div>
 
 					<div className='font-semibold my-4'>
+						{
+							testCase.length>0?
+								<div>
+									<h1 className={`${testCase[activeTestCaseId]?.status?.description == 'Accepted' ? 'text-green-500' : 'text-red-500'}`}>
+										{testCase[activeTestCaseId]?.status?.description
+									}</h1>
+								</div>
+							:
+							<></>
+						}
+
 						<p className='text-sm font-medium mt-4 text-white'>Input:</p>
 						<div className='w-full cursor-text rounded-lg border px-3 py-[10px] bg-dark-fill-3 border-transparent text-white mt-2'>
 							{problem.examples[activeTestCaseId].inputText}
 						</div>
-						<p className='text-sm font-medium mt-4 text-white'>Output:</p>
+						<p className='text-sm font-medium mt-4 text-white'>Expected:</p>
 						<div className='w-full cursor-text rounded-lg border px-3 py-[10px] bg-dark-fill-3 border-transparent text-white mt-2'>
 							{problem.examples[activeTestCaseId].outputText}
 						</div>
+						{
+						testCase.length>0?
+						<>
+						<p className='text-sm font-medium mt-4 text-white'>Output:</p>
+						<div className='w-full cursor-text rounded-lg border px-3 py-[10px] bg-dark-fill-3 border-transparent text-white mt-2'>
+							{testCase[activeTestCaseId]?.stdout}
+						</div>
+						</>
+						:
+						<></>
+						}
 					</div>
 				</div>
 			</Split>
-			<EditorFooter handleSubmit={handleSubmit} />
+			<EditorFooter handleRun={handleRun} handleSubmit={handleSubmit} />
 		</div>
 	);
 };

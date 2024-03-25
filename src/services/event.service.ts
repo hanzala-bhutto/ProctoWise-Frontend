@@ -100,9 +100,9 @@ const judgeWRTEventDetailsRequest = (eventID: string)=>{
     }
 }
 
-const getTaskRequest = (eventID: string)=>{
+const getTaskRequest = (taskID: string)=>{
     return{
-        url: `${GLOBAL_PATH}${apiPath.GET_TASK}/${eventID}`,
+        url: `${GLOBAL_PATH}${apiPath.GET_TASK}/${taskID}`,
         method: 'GET',
     }
 }
@@ -150,6 +150,12 @@ const judgeJoinEvent = (body:any) => {
         url: `${GLOBAL_PATH}${apiPath.JUDGE_JOIN_EVENT}`,
         method: 'POST',
         body: body
+    }
+}
+const getAllTasksRequest = (eventID:string)=>{
+    return {
+        url: `${GLOBAL_PATH}${apiPath.GET_ALL_TASKS}/${eventID}`,
+        method: 'GET'
     }
 }
 
@@ -326,6 +332,12 @@ export const authApi = apiWithTags.injectEndpoints({
             return rawResult
         }
     }), 
+    getAllTasks: build.query({
+        query: getAllTasksRequest,
+        transformresponse:(rawResult:any)=>{
+            return rawResult;
+        }
+    })
 
     })
 })
@@ -348,6 +360,7 @@ export const {
     useDeletejudgeFromEventMutation,
     useJudgeJoinEventMutation,
     useGetTaskQuery,
+    useGetAllTasksQuery,
     useEventUpdateTaskMutation,
     useDeleteUseCaseMutation,
     useDeleteTaskMutation

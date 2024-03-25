@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from './store';
 const initialState = {
-
     eventID: '65bd021828009d95442c7cb7',
 }
 
