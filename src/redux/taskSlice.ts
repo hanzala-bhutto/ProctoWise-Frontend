@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from './store';
 const initialState = {
 
-    eventID: '65f41836b3b1c2ed0ee473af',
+    eventID: '65bd021828009d95442c7cb7',
 }
 
 const taskSlice = createSlice(
@@ -13,6 +13,7 @@ const taskSlice = createSlice(
             setEventID:(state, {payload}) => {
                 // console.log(payload);
                 state.eventID=payload.eventID;
+                // console.log(state.eventID);
             },
             deleteEventID:(state)=>{
                 state.eventID='';

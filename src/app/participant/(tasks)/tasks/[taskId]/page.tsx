@@ -6,6 +6,8 @@ import useHasMounted from "@/hooks/useHasMounted";
 import { problems } from "@/utils/problems";
 import { Problem } from "@/utils/types/problem";
 import React from "react";
+import { useAppDispatch } from '../../../../../redux/store';
+import { setTaskID } from "@/redux/singleTaskSlice";
 
 type ProblemPageProps = {
 	pid: string;
@@ -13,11 +15,14 @@ type ProblemPageProps = {
 
 const ProblemPage = ({ params }: { params: { taskId: string } }) => {
 	const hasMounted = useHasMounted();
+	const dispatch = useAppDispatch();
 
     console.log(params);
 
     const { taskId } = params;
 	const problem = problems[taskId];
+	
+	dispatch(setTaskID({taskID:taskId}));
 
     console.log(problem,taskId);
 
