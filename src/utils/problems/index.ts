@@ -1,4 +1,5 @@
 import { Problem } from "../types/problem";
+import { addTwoNumbers } from "./add-two-numbers";
 import { jumpGame } from "./jump-game";
 import { reverseLinkedList } from "./reverse-linked-list";
 import { search2DMatrix } from "./search-a-2d-matrix";
@@ -10,7 +11,9 @@ interface ProblemMap {
 }
 
 export const problems: ProblemMap = {
-	"65f417f0b3b1c2ed0ee473ae": twoSum,
+	"65f59720b3b1c2ed0ee473b3": twoSum,
+	"65f5981cb3b1c2ed0ee473b4": validParentheses,
+	"65fe9b5d93694c4ffb2b2128": addTwoNumbers,
 	"two-sum": twoSum,
 	"reverse-linked-list": reverseLinkedList,
 	"jump-game": jumpGame,

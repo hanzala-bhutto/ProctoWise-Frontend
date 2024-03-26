@@ -38,4 +38,5 @@ export enum apiPath {
   DELETE_USECASE = "/api/usecase/deleteUsecase",
   DELETE_TASK = "/api/task/deleteTask",
   GET_ALL_TASKS="/api/task/getAllTasks",
+  RUN_CODE = "/api/grader/runCode"
 }

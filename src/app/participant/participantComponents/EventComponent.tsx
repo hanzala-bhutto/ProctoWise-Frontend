@@ -12,9 +12,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import EventPaymentToggler from "./EventPaymentToggler";
-import { useAppSelector } from "@/redux/store";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { useValidatePaymentMutation } from "@/services/payment.service";
 import PaymentCard from "./PaymentCard";
+import { setEventID } from "@/redux/taskSlice";
 
 interface CostDetails {
   amount: number;
@@ -41,6 +42,9 @@ function EventComponent({ event }: { event: EventProps }) {
   const [remainingTime, setRemainingTime] = useState<string | null>(null);
   const [eventStarted, setEventStarted] = useState(false);
   const [isTimeOver, setIsTimeOver] = useState(false);
+
+  const dispatch=useAppDispatch();
+
 
   // useEffect(() => {
   //   const intervalId = setInterval(() => {
@@ -196,7 +200,7 @@ function EventComponent({ event }: { event: EventProps }) {
         {
           paymentEntry?.status === 'paid' 
           ?
-          <Button><Link href={`/participant/tasks`} target="blank">Start</Link></Button>
+          <Button onClick={()=>dispatch(setEventID({eventID:event._id}))}><Link href={`/participant/tasks`} target="blank">Start</Link></Button>
           :
           <EventPaymentToggler event={event}/>
         }
