@@ -2,15 +2,48 @@
 
 import ProblemsTable from "@/components/TaskComponents/ProblemsTable/ProblemsTable";
 import Topbar from "@/components/TaskComponents/Topbar/Topbar";
+import { Button } from "@/components/ui/button";
 import useHasMounted from "@/hooks/useHasMounted";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
+import { setSubmission } from "@/redux/submissionSlice";
+import { useSubmitEventMutation } from "@/services/submission.service";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
 	const [loadingProblems, setLoadingProblems] = useState(true);
 	const hasMounted = useHasMounted();
 
+	const [submitEvent] = useSubmitEventMutation();
+
+	const participantID = useAppSelector((state) => state?.auth?.user?.id);
+	const eventID = useAppSelector((state) => state.tasks.eventID);
+	const request = useAppSelector((state) => state?.submission);
+
+	const dispatch = useAppDispatch();
+
+	useEffect(()=> {
+		dispatch(setSubmission({eventID, participantID}))
+	},[])
+
 	if (!hasMounted) return null;
+
+	const handleSubmitEvent = async () => {
+
+
+		// console.log(request);
+
+		const response = await submitEvent(request).unwrap();
+
+		if(response){
+			alert("Sucessfully submitted")
+			// console.log(response);
+		}
+		else{
+			alert("Failed to submit")
+		}
+
+	}
 
 	return (
 		<>
@@ -53,6 +86,9 @@ export default function Home() {
 						<ProblemsTable setLoadingProblems={setLoadingProblems} />
 					</table>
 				</div>
+				<footer className="flex justify-center">
+					<Button onClick={handleSubmitEvent} className=" bg-green-600 hover:bg-purple-600">Submit Event</Button>
+				</footer>
 			</main>
 		</>
 	);
