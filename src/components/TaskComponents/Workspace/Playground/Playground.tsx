@@ -16,8 +16,10 @@ import { toast } from "react-toastify";
 import { problems } from "@/utils/problems";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import { useAppSelector } from "@/redux/store";
-import { useRunCodeMutation } from "@/services/submission.service";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
+import { useRunCodeMutation, useSubmitCodeMutation } from "@/services/submission.service";
+import { AppDispatch } from '../../../../redux/store';
+import { addAttemptedTask } from "@/redux/submissionSlice";
 
 type PlaygroundProps = {
 	problem: Problem;
@@ -37,6 +39,7 @@ const Playground: React.FC<PlaygroundProps> = ({ problem, setSuccess, setSolved 
 	let [userCode, setUserCode] = useState<string>(problem.starterCode);
 
 	const [run] =  useRunCodeMutation();
+	const [submit] = useSubmitCodeMutation();
 
 	const [fontSize, setFontSize] = useLocalStorage("lcc-fontSize", "16px");
 
@@ -55,11 +58,25 @@ const Playground: React.FC<PlaygroundProps> = ({ problem, setSuccess, setSolved 
 	const pid = useAppSelector((state) => state.task.taskID);
 	const eventID = useAppSelector((state) => state.tasks.eventID);
 
+	const submission = useAppSelector((state) => state?.submission);
+	console.log(submission);
+
+	const dispatch = useAppDispatch();
+
 
 	// console.log(pid);
 
+	useEffect(() => {
+		const index = submission.attemptedTasks.findIndex(task => task.taskID === pid);
+		if(index !== -1) {
+			setUserCode(submission.attemptedTasks[index].code)
+			// console.log('here');
+		}
+		// console.log(submission.submissionData);
+	},[submission])
+
 	const handleRun = async () => {
-		console.log(userCode);
+		// console.log(userCode);
 
 		const request = {
 			participantID: participantID,
@@ -68,7 +85,8 @@ const Playground: React.FC<PlaygroundProps> = ({ problem, setSuccess, setSolved 
 			userCode: userCode
 		}
 
-		console.log(request);
+		// console.log(request);
+
 
 		const response:any = await run(request).unwrap();
 
@@ -90,71 +108,55 @@ const Playground: React.FC<PlaygroundProps> = ({ problem, setSuccess, setSolved 
 	}
 
 	const handleSubmit = async () => {
-		// if (!user) {
-		// 	toast.error("Please login to submit your code", {
-		// 		position: "top-center",
-		// 		autoClose: 3000,
-		// 		theme: "dark",
-		// 	});
-		// 	return;
-		// }
-		try {
-			userCode = userCode.slice(userCode.indexOf(problem.starterFunctionName));
-			const cb = new Function(`return ${userCode}`)();
-			const handler = problems[pid as string].handlerFunction;
 
-			if (typeof handler === "function") {
-				const success = handler(cb);
-				if (success) {
-					toast.success("Congrats! All tests passed!", {
-						position: "top-center",
-						autoClose: 3000,
-						theme: "dark",
-					});
-					setSuccess(true);
-					setTimeout(() => {
-						setSuccess(false);
-					}, 4000);
+		// console.log(userCode);
 
-					// const userRef = doc(firestore, "users", user.uid);
-					// await updateDoc(userRef, {
-					// 	solvedProblems: arrayUnion(pid),
-					// });
-					setSolved(true);
-				}
-			}
-		} catch (error: any) {
-			console.log(error.message);
-			if (
-				error.message.startsWith("AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:")
-			) {
-				toast.error("Oops! One or more test cases failed", {
-					position: "top-center",
-					autoClose: 3000,
-					theme: "dark",
-				});
-			} else {
-				toast.error(error.message, {
-					position: "top-center",
-					autoClose: 3000,
-					theme: "dark",
-				});
+		dispatch(addAttemptedTask({taskID: pid, code:userCode, language: 'python'}))
+
+		const request = {
+			participantID: participantID,
+			eventID: eventID,
+			submissionData: {
+				taskID: pid,
+				code: userCode,
+				language: 'python'
 			}
 		}
+
+		// console.log(request);
+
+		const response:any = await submit(request).unwrap();
+
+		if (response){
+			// console.log(response);
+
+			const useCase = response.map((useCase:any) => useCase.data);
+
+			setTestCase(useCase);
+
+			// console.log(useCase);
+
+			alert('Success');
+		}
+		else{
+			alert('Error');
+		}
+
+
 	};
 
-	useEffect(() => {
-		const code = localStorage.getItem(`code-${pid}`);
-		// if (user) {
-		// 	setUserCode(code ? JSON.parse(code) : problem.starterCode);
-		// } else {
-		// }
-		setUserCode(problem.starterCode);
-	}, [pid, problem.starterCode]);
+	// useEffect(() => {
+	// 	const code = localStorage.getItem(`code-${pid}`);
+	// 	// if (user) {
+	// 	// 	setUserCode(code ? JSON.parse(code) : problem.starterCode);
+	// 	// } else {
+	// 	// }
+	// 	setUserCode(problem.starterCode);
+	// }, [pid, problem.starterCode]);
 
 	const onChange = (value: string) => {
 		setUserCode(value);
-		localStorage.setItem(`code-${pid}`, JSON.stringify(value));
+		// localStorage.setItem(`code-${pid}`, JSON.stringify(value));
 	};
 
 	return (

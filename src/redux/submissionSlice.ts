@@ -3,13 +3,13 @@ import { RootState } from './store';
 const initialState : Submission = {
     eventID: '',
     participantID: '',
-    attemtedTasks: []
+    attemptedTasks: []
 }
 
 interface Submission {
     eventID: string;
     participantID: string;
-    attemtedTasks: AttemptedTask[]
+    attemptedTasks: AttemptedTask[]
 }
 
 interface AttemptedTask {
@@ -32,24 +32,24 @@ const submissionSlice = createSlice(
             },
             addAttemptedTask: (state, {payload}) => {
 
-                if (state.attemtedTasks.length > 0) {
-                    console.log(current(state.attemtedTasks));
+                if (state.attemptedTasks.length > 0) {
+                    console.log(current(state.attemptedTasks));
 
-                    const taskIndex = state.attemtedTasks.findIndex((task) => task.taskID === payload.taskID);
+                    const taskIndex = state.attemptedTasks.findIndex((task) => task.taskID === payload.taskID);
 
                     console.log(taskIndex,payload);
     
                     if (taskIndex == -1){
-                        state.attemtedTasks.push(payload);
+                        state.attemptedTasks.push(payload);
                     }
                     else{
-                        state.attemtedTasks[taskIndex].code = payload.code;
-                        state.attemtedTasks[taskIndex].language = payload.language;
+                        state.attemptedTasks[taskIndex].code = payload.code;
+                        state.attemptedTasks[taskIndex].language = payload.language;
                     }
                 }
                 else{
-                    state.attemtedTasks.push(payload);
-                    console.log(current(state.attemtedTasks));
+                    state.attemptedTasks.push(payload);
+                    // console.log(current(state.attemptedTasks));
                 }
 
             },
