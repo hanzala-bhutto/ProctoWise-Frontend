@@ -10,6 +10,7 @@ import { DBProblem } from "@/utils/types/problem";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useGetAllTasksByEventIDQuery } from "@/services/task.service";
 import { useAppSelector } from "@/redux/store";
+import { useSubmissionStatusQuery } from "@/services/submission.service";
 
 interface Problem {
 	_id: string;
@@ -33,7 +34,7 @@ const ProblemsTable: React.FC<ProblemsTableProps> = ({ setLoadingProblems }) => 
 
 	// const problems = useState({});
 
-	const solvedProblems = useGetSolvedProblems();
+	const solvedProblems: string[] = useGetProblemsStatus();
 	// console.log("solvedProblems", solvedProblems);
 	// const closeModal = () => {
 	// 	setYoutubePlayer({ isOpen: false, videoId: "" });
@@ -62,7 +63,7 @@ const ProblemsTable: React.FC<ProblemsTableProps> = ({ setLoadingProblems }) => 
 					return (
 						<tr className={`${idx % 2 == 1 ? "bg-dark-layer-1" : ""}`} key={problem._id}>
 							<th className='px-2 py-4 font-medium whitespace-nowrap text-dark-green-s'>
-								{solvedProblems.includes(problem._id) && <BsCheckCircle fontSize={"18"} width='18' />}
+								{solvedProblems?.includes(problem._id) && <BsCheckCircle fontSize={"18"} width='18' />}
 							</th>
 							<td className='px-6 py-4'>
 								{(
@@ -123,6 +124,23 @@ function useGetProblems(setLoadingProblems: React.Dispatch<React.SetStateAction<
 // 	// 	getProblems();
 // 	// }, [setLoadingProblems]);
 	return problems;
+}
+
+function useGetProblemsStatus(){
+	const [status, setStatus] = useState([]);
+
+	const participantID = useAppSelector((state) => state?.auth?.user?.id);
+
+	const eventID = useAppSelector((state) => state.tasks.eventID);
+
+	const {data} = useSubmissionStatusQuery({eventID: eventID, participantID:participantID});
+
+	useEffect(() =>{
+		setStatus(data as any);
+	},[data]);
+
+
+	return status;
 }
 
 function useGetSolvedProblems() {
