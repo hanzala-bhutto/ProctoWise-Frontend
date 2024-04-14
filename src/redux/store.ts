@@ -5,6 +5,7 @@ import authReducer from './authSlice';
 // import taskReducer from './taskSlice';
 import taskReducer from './taskSlice';
 import singleTaskReducer from './singleTaskSlice';
+import submissionReducer from './submissionSlice';
 
 import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE, persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
   [Api.reducerPath]: Api.reducer,  
   auth: authReducer,
   tasks: taskReducer,
-  task: singleTaskReducer
+  task: singleTaskReducer,
+  submission: submissionReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
