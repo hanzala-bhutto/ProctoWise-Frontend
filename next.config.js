@@ -9,7 +9,7 @@ const nextConfig = {
         ignoreBuildErrors: true,
     },
     env: {
-        BASE_URL: process.env.BASE_URL,
+        API_BASE_URL: process.env.API_BASE_URL,
         GLOBAL_PATH: process.env.GLOBAL_PATH,
     },
 }
