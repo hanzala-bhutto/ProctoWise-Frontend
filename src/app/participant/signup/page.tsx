@@ -52,7 +52,7 @@ const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
 //   console.log(form);
 };
 
-const handleSubmit = async (e) => {
+const handleSubmit = async (e:any) => {
   console.log('meow')
     e.preventDefault();
 
@@ -130,7 +130,7 @@ const handleSubmit = async (e) => {
 						
                         <div className="mb-4">
 							<div className="mb-4 md:mr-2 md:mb-0">
-								<label className="block mb-2 text-sm font-bold text-gray-700 dark:text-white" for="firstName">
+								<label className="block mb-2 text-sm font-bold text-gray-700 dark:text-white" htmlFor="firstName">
                                     User Name
                                 </label>
 								<input
@@ -145,7 +145,7 @@ const handleSubmit = async (e) => {
                                 />
 							</div>
 							{/* <div className="md:ml-2">
-								<label className="block mb-2 text-sm font-bold text-gray-700 dark:text-white" for="lastName">
+								<label className="block mb-2 text-sm font-bold text-gray-700 dark:text-white" htmlFor="lastName">
                                     Last Name
                                 </label>
 								<input
@@ -158,7 +158,7 @@ const handleSubmit = async (e) => {
 							</div> */}
 						</div>
 						<div className="mb-4">
-							<label className="block mb-2 text-sm font-bold text-gray-700 dark:text-white" for="email">
+							<label className="block mb-2 text-sm font-bold text-gray-700 dark:text-white" htmlFor="email">
                                 Email
                             </label>
 							<input
@@ -174,7 +174,7 @@ const handleSubmit = async (e) => {
 						</div>
 						<div className="mb-4 md:flex md:justify-between">
 							<div className="mb-4 md:mr-2 md:mb-0">
-								<label className="block mb-2 text-sm font-bold text-gray-700 dark:text-white" for="password">
+								<label className="block mb-2 text-sm font-bold text-gray-700 dark:text-white" htmlFor="password">
                                     Password
                                 </label>
 								<input
@@ -190,7 +190,7 @@ const handleSubmit = async (e) => {
 								{/* <p className="text-xs italic text-red-500">Please choose a password.</p> */}
 							</div>
 							<div className="md:ml-2">
-								<label className="block mb-2 text-sm font-bold text-gray-700 dark:text-white" for="c_password">
+								<label className="block mb-2 text-sm font-bold text-gray-700 dark:text-white" htmlFor="c_password">
                                     Confirm Password
                                 </label>
 								<input

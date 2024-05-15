@@ -12,7 +12,7 @@ import { Provider } from 'react-redux';
 const inter = Inter({ subsets: ['latin'] });
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const router = usePathname();
+  const router:any = usePathname();
 
   useEffect(() => {
     const isEventFunctionsFolder = router.includes('/organizer');
@@ -24,7 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     } else {
       // Do something else when not in the Event Functions folder
     }
-  }, [router.pathname]);
+  }, [router?.pathname]);
 
   return (
     <html lang="en" className="light">
