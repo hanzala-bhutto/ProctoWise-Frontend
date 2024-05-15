@@ -1,6 +1,6 @@
 export const API_BASE_URL = '';
 
-export const GLOBAL_PATH = 'http://localhost:5000';
+export const GLOBAL_PATH = process.env.GLOBAL_PATH;
 
 export enum apiPath {
   // AUTH
