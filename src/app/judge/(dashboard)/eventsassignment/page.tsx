@@ -23,7 +23,7 @@ interface EventProps {
 }
 
 interface Event {
-  id: number;
+  _id: number;
   name: string;
   description: string;
 }
@@ -55,7 +55,7 @@ const EventAssignment = () => {
         {events ? events.map((event, index) => (
           <EventCard
             key={index}
-            id={event.id}
+            id={event._id}
             title={event.name}
             description={event.description}
             // content={event.content}
