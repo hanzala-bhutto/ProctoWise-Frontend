@@ -50,6 +50,5 @@ const EventCard: React.FC<EventProps> = ({
     </Card>
   );
 };
-EventCard.propTypes = propTypes;
 
 export default EventCard;
