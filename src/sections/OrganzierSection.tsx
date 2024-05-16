@@ -7,11 +7,12 @@ const OrganzierSection = () => {
       <div className="mb-12 px-6 lg:px-8">
         <div className="mx-auto max-w-2xl sm:text-center">
           <h2 className="mt-2 font-bold text-4xl text-gray-900 sm:text-5xl">
-            Neque porro quisquam est qui
+            Ready to Organize Competitions
           </h2>
           <p className="mt-4 text-lg text-gray-600">
-            "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,
-            consectetur, adipisci velit..."
+            Empower event organizers to efficiently manage and coordinate every
+            aspect of their events with the comprehensive tools provided by
+            Proctowise
           </p>
         </div>
       </div>
@@ -21,30 +22,18 @@ const OrganzierSection = () => {
         <li className="md:flex-1">
           <div className="flex flex-col space-y-2 border-l-4 border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pt-4">
             <span className="text-sm font-medium text-blue-600">Step 1</span>
-            <span className="text-xl font-semibold">
-              Sign up for an account
-            </span>
+            <span className="text-xl font-semibold">Create Event</span>
             <span className="mt-2 text-zinc-700">
-              Either starting out with a free plan or choose our{" "}
-              <Link
-                href="/pricing"
-                className="text-blue-700 underline underline-offset-2"
-              >
-                pro plan
-              </Link>
-              .
+              Initiate new events with essential details
             </span>
           </div>
         </li>
         <li className="md:flex-1">
           <div className="flex flex-col space-y-2 border-l-4 border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pt-4">
             <span className="text-sm font-medium text-blue-600">Step 2</span>
-            <span className="text-xl font-semibold">
-              Lorem ipsum dolor sit amet.
-            </span>
+            <span className="text-xl font-semibold">Manage Tasks</span>
             <span className="mt-2 text-zinc-700">
-              "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,
-              consectetur, adipisci velit..."
+              Organize event tasks and activities
             </span>
           </div>
         </li>
@@ -52,11 +41,19 @@ const OrganzierSection = () => {
           <div className="flex flex-col space-y-2 border-l-4 border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pt-4">
             <span className="text-sm font-medium text-blue-600">Step 3</span>
             <span className="text-xl font-semibold">
-              Lorem ipsum dolor sit amet.{" "}
+              Coordinate Participants and Judges
             </span>
             <span className="mt-2 text-zinc-700">
-              "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,
-              consectetur, adipisci velit..."
+              Invite, add, and remove participants and judges
+            </span>
+          </div>
+        </li>
+        <li className="md:flex-1">
+          <div className="flex flex-col space-y-2 border-l-4 border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pt-4">
+            <span className="text-sm font-medium text-blue-600">Step 4</span>
+            <span className="text-xl font-semibold">Profile Management</span>
+            <span className="mt-2 text-zinc-700">
+              Update organizer profile information
             </span>
           </div>
         </li>
