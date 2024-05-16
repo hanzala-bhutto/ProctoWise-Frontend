@@ -249,7 +249,7 @@ function EventComponent({ event }: { event: EventProps }) {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-2">
-          <p className="font-bold text-lg my-2">Payment Amount: ${event.costDetails.amount} {event.costDetails.currency}</p>
+          <p className="font-bold text-lg my-2">Payment Amount: ${event?.costDetails?.amount} {event?.costDetails?.currency}</p>
           <p className="my-2">Accepted Payment Methods:</p>
           <ul className="list-disc ml-8">
             <li>Credit/Debit Card</li>
