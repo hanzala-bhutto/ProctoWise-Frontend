@@ -41,7 +41,7 @@ const EventCard: React.FC<EventProps> = ({
       <CardFooter>
         <p className="flex justify-center ">
           <Button asChild>
-            <Link href={`/judge/eventsassignment/${encodeURIComponent(id)}`}>
+            <Link href={`/judge/eventsassignment/${encodeURIComponent(id)}/viewSubmissions`}>
               View Submissions <SendIcon className="ml-2" />
             </Link>
           </Button>

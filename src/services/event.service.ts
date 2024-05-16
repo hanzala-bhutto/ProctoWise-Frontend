@@ -166,6 +166,13 @@ const getAllTasksRequest = (eventID:string)=>{
     }
 }
 
+const getSubmissions = (participantID:string)=>{
+    return {
+        url: `${GLOBAL_PATH}${apiPath.GET_SUBMISSIONS_OF_PARTICIPANTS}/${participantID}`,
+        method: 'GET'
+    }
+}
+
 const apiWithTags = Api.enhanceEndpoints({
     addTagTypes: ServiceTagTypes.LOGIN_SERVICE,
 });
@@ -351,6 +358,13 @@ export const authApi = apiWithTags.injectEndpoints({
             return rawResult.data;
         }
 
+    }),
+    getSubmissions: build.query({
+        query: getSubmissions,
+        trasformResponse:(rawResult:any)=>{
+            return rawResult.data;
+        }
+
     })
 
     })
@@ -378,6 +392,7 @@ export const {
     useEventUpdateTaskMutation,
     useDeleteUseCaseMutation,
     useDeleteTaskMutation,
-    useParticipantSubmissionQuery
+    useParticipantSubmissionQuery,
+    useGetSubmissionsQuery
 
   } = authApi;

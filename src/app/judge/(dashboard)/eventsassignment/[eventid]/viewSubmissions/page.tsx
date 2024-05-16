@@ -12,7 +12,7 @@ import {
     TableRow,
   } from "@/components/ui/table";
   import { Button } from "@/components/ui/button";
-
+import { useRouter } from "next/navigation";
 interface Participant {
     _id: number;
     email: string;
@@ -22,7 +22,7 @@ const ViewSubmissions = ({ params }: { params: { eventid: string } }) => {
     const eventID = params.eventid;
     const {data} = useParticipantSubmissionQuery(eventID);
     const [participants,setParticipants] = useState<Participant[]>([]);
-
+    const router = useRouter();
     useEffect(() => {
         if (data && data.success) {
             setParticipants(data.data); // Set participants to the data array
@@ -33,6 +33,9 @@ const ViewSubmissions = ({ params }: { params: { eventid: string } }) => {
     console.log("participants: ",participants);
   },[participants])
 
+  const viewSubmissionIndividual=(participantID:number)=>{
+    router.push(`viewSubmissions/${participantID}`);
+  }
     return(
         <Table>
       <TableHeader>
@@ -51,7 +54,7 @@ const ViewSubmissions = ({ params }: { params: { eventid: string } }) => {
             {/* <TableCell>{participant.name}</TableCell> */}
             <TableCell>{participant.email}</TableCell>
             <TableCell>
-              <Button>View Submission</Button>
+              <Button onClick={()=>viewSubmissionIndividual(participant._id)}>View Submission</Button>
             </TableCell>
           </TableRow>
         ))}

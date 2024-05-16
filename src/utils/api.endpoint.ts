@@ -43,5 +43,7 @@ export enum apiPath {
   SUBMISSION_STATUS = "/api/submission/submissionStatus",
   SUBMIT_EVENT = "/api/submission/submitEvent",
   VERIFY_PARTICIPANT = "/api/proctor/verify",
-  DETECT_FACE = "/api/proctor/detectFace"
+  DETECT_FACE = "/api/proctor/detectFace",
+  GET_PARTICIPANTS_SUBMISSION= "/api/submission/getParticipantSubmissions",
+  GET_SUBMISSIONS_OF_PARTICIPANTS = "/api/submission/getSubmissionOfParticipants"
 }
