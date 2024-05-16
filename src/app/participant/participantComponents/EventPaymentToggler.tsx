@@ -81,13 +81,13 @@ const EventPaymentToggler = ({ event }: { event: EventProps }) => {
   
     useEffect(() => {
         setForm(prevState => ({...prevState, 
-            participantID: participant.id,
-            name: participant.name,
-            email: participant.email,
-            eventID: event._id,
-            description: event.description,
-            amount: event.costDetails.amount,
-            currency: event.costDetails.currency
+            participantID: participant?.id,
+            name: participant?.name,
+            email: participant?.email,
+            eventID: event?._id,
+            description: event?.description,
+            amount: event?.costDetails?.amount,
+            currency: event?.costDetails?.currency
             }
             ))
     },[participant]);
@@ -184,7 +184,7 @@ const EventPaymentToggler = ({ event }: { event: EventProps }) => {
 
       {/* <label className=" font-bold text-sm mb-2 block">Card holder:</label>
       <input type="text" className="flex h-10 w-full rounded-md border-2 px-4 py-1.5 text-lg ring-offset-background focus-visible:outline-none focus-visible:border-purple-600 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" id="cardName" placeholder="John Doe" value="John Doe" /> */}
-      <Button onClick={handleSubmit} className="mt-8 text-lg w-full">Pay {event.costDetails.amount} {event.costDetails.currency}</Button>
+      <Button onClick={handleSubmit} className="mt-8 text-lg w-full">Pay {event?.costDetails?.amount} {event?.costDetails?.currency}</Button>
     </div>
   </form>
       </DialogContent>

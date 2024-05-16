@@ -1,6 +1,6 @@
 export const API_BASE_URL = '';
 
-export const GLOBAL_PATH = 'http://localhost:5000';
+export const GLOBAL_PATH = process.env.GLOBAL_PATH;
 
 export enum apiPath {
   // AUTH
@@ -41,5 +41,7 @@ export enum apiPath {
   RUN_CODE = "/api/grader/runCode",
   SUBMIT_CODE = "/api/grader/submitCode",
   SUBMISSION_STATUS = "/api/submission/submissionStatus",
-  SUBMIT_EVENT = "/api/submission/submitEvent"
+  SUBMIT_EVENT = "/api/submission/submitEvent",
+  VERIFY_PARTICIPANT = "/api/proctor/verify",
+  DETECT_FACE = "/api/proctor/detectFace"
 }

@@ -44,7 +44,7 @@ export default function Signup() {
     //   console.log(form);
     };
   
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e:any) => {
         e.preventDefault();
   
       // for loop for Form 
@@ -106,7 +106,7 @@ export default function Signup() {
 						
                         <div className="mb-4">
 							<div className="mb-4 md:mr-2 md:mb-0">
-								<label className="block mb-2 text-sm font-bold text-gray-700 dark:text-white" for="firstName">
+								<label className="block mb-2 text-sm font-bold text-gray-700 dark:text-white" htmlFor="firstName">
                                     User Name
                                 </label>
 								<input
@@ -121,7 +121,7 @@ export default function Signup() {
                                 />
 							</div>
 							{/* <div className="md:ml-2">
-								<label className="block mb-2 text-sm font-bold text-gray-700 dark:text-white" for="lastName">
+								<label className="block mb-2 text-sm font-bold text-gray-700 dark:text-white" htmlFor="lastName">
                                     Last Name
                                 </label>
 								<input
@@ -134,7 +134,7 @@ export default function Signup() {
 							</div> */}
 						</div>
 						<div className="mb-4">
-							<label className="block mb-2 text-sm font-bold text-gray-700 dark:text-white" for="email">
+							<label className="block mb-2 text-sm font-bold text-gray-700 dark:text-white" htmlFor="email">
                                 Email
                             </label>
 							<input
@@ -150,7 +150,7 @@ export default function Signup() {
 						</div>
 						<div className="mb-4 md:flex md:justify-between">
 							<div className="mb-4 md:mr-2 md:mb-0">
-								<label className="block mb-2 text-sm font-bold text-gray-700 dark:text-white" for="password">
+								<label className="block mb-2 text-sm font-bold text-gray-700 dark:text-white" htmlFor="password">
                                     Password
                                 </label>
 								<input
@@ -166,7 +166,7 @@ export default function Signup() {
 								{/* <p className="text-xs italic text-red-500">Please choose a password.</p> */}
 							</div>
 							<div className="md:ml-2">
-								<label className="block mb-2 text-sm font-bold text-gray-700 dark:text-white" for="c_password">
+								<label className="block mb-2 text-sm font-bold text-gray-700 dark:text-white" htmlFor="c_password">
                                     Confirm Password
                                 </label>
 								<input
