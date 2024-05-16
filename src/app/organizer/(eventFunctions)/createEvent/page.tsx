@@ -70,7 +70,7 @@ import { useCreateEventsMutation } from '@/services/event.service';
     });
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e:any) => {
       e.preventDefault();
 
     // for loop for Form 

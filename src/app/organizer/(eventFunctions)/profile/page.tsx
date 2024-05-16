@@ -14,7 +14,7 @@ interface User {
   name: string;
 }
 
-const ProfilePage: React.FC<{ user: User }> = ({ user }) => {
+const ProfilePage = () => {
 
   const organizer : Organizer | null = useAppSelector((state) => state.auth?.user);
 

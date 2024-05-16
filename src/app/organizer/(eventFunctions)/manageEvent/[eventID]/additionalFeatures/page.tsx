@@ -3,7 +3,15 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 
-const FeatureToggle = ({ feature, onChange }) => {
+
+// Define the type for the `feature` prop
+interface FeatureToggleProps {
+  feature: any; // Adjust the type according to your requirements
+  onChange: (newValue: string) => void; // Adjust the type according to your requirements
+}
+
+
+const FeatureToggle: React.FC<FeatureToggleProps> = ({ feature, onChange }) => {
   return (
     <div className="flex items-center justify-between mb-4">
       <div className="flex flex-col">
@@ -56,7 +64,7 @@ const AdditionalFeatures = () => {
     },
   ]);
 
-  const handleFeatureToggle = (selectedFeature) => {
+  const handleFeatureToggle = (selectedFeature:any) => {
     setFeatures((prevFeatures) =>
       prevFeatures.map((feature) =>
         feature.id === selectedFeature.id

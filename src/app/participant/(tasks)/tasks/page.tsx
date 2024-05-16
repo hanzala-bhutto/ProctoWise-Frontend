@@ -9,6 +9,7 @@ import { setSubmission } from "@/redux/submissionSlice";
 import { useSubmitEventMutation } from "@/services/submission.service";
 
 import { useEffect, useState } from "react";
+import FaceToggler from "../../participantComponents/FaceToggler";
 
 export default function Home() {
 	const [loadingProblems, setLoadingProblems] = useState(true);
@@ -47,6 +48,7 @@ export default function Home() {
 
 	return (
 		<>
+		<FaceToggler />
 			<main className='bg-dark-layer-2 min-h-screen'>
 				<Topbar />
 				<h1

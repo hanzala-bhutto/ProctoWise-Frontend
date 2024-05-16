@@ -12,7 +12,7 @@ interface User {
   name: string;
 }
 
-const ProfilePage: React.FC<{ user: User }> = ({ user }) => {
+const ProfilePage = () => {
   const [participants, setParticipants] = useState<Participant[]>(
     data.participants.filter((participant) => participant.name === "Jane Smith")
   );
