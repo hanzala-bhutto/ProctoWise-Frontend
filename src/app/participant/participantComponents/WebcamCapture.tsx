@@ -54,8 +54,14 @@ export const WebcamCapture = () => {
 
     if (response.success){
       const data = response.data;
-      if (data._distance<=0.5){
-        alert('Verified');
+      if (null){
+        alert('Face not matched');
+      }
+      else if (data._distance<=0.5){
+        alert('You are Verified');
+      }
+      else{
+        alert("You are not verified")
       }
     }
 
