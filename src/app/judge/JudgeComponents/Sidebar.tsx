@@ -27,6 +27,12 @@ const Sidebar = () => {
       gap: false,
       href: "/judge/eventsassignment",
     },
+    {
+      title: "Test Plag Detection",
+      icon: <Joystick />,
+      gap: false,
+      href: "/judge/testPlag",
+    },
 
     {
       title: "Profile",

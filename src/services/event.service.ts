@@ -107,6 +107,13 @@ const getTaskRequest = (taskID: string)=>{
     }
 }
 
+const participantSubmission = (eventID:string)=>{
+    return{
+        url: `${GLOBAL_PATH}${apiPath.GET_PARTICIPANTS_SUBMISSION}/${eventID}`,
+        method: 'GET',
+    }
+}
+
 const deleteUseCaseRequest = (taskID:string)=>{
     return{
         url: `${GLOBAL_PATH}${apiPath.DELETE_USECASE}/${taskID}`,
@@ -155,6 +162,13 @@ const judgeJoinEvent = (body:any) => {
 const getAllTasksRequest = (eventID:string)=>{
     return {
         url: `${GLOBAL_PATH}${apiPath.GET_ALL_TASKS}/${eventID}`,
+        method: 'GET'
+    }
+}
+
+const getSubmissions = (participantID:string)=>{
+    return {
+        url: `${GLOBAL_PATH}${apiPath.GET_SUBMISSIONS_OF_PARTICIPANTS}/${participantID}`,
         method: 'GET'
     }
 }
@@ -337,6 +351,20 @@ export const authApi = apiWithTags.injectEndpoints({
         transformresponse:(rawResult:any)=>{
             return rawResult;
         }
+    }),
+    participantSubmission: build.query({
+        query: participantSubmission,
+        trasformResponse:(rawResult:any)=>{
+            return rawResult.data;
+        }
+
+    }),
+    getSubmissions: build.query({
+        query: getSubmissions,
+        trasformResponse:(rawResult:any)=>{
+            return rawResult.data;
+        }
+
     })
 
     })
@@ -363,6 +391,8 @@ export const {
     useGetAllTasksQuery,
     useEventUpdateTaskMutation,
     useDeleteUseCaseMutation,
-    useDeleteTaskMutation
+    useDeleteTaskMutation,
+    useParticipantSubmissionQuery,
+    useGetSubmissionsQuery
 
   } = authApi;
