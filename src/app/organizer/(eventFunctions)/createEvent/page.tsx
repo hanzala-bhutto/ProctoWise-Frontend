@@ -132,7 +132,7 @@ import { useCreateEventsMutation } from '@/services/event.service';
                 <div className="h-14 w-14 bg-red-200 rounded-full flex flex-shrink-0 justify-center items-center text-yellow-500 text-2xl font-mono">X</div>
                 <div className="block pl-2 font-semibold text-xl self-start text-gray-700">
                   <h2 className="leading-relaxed">Create an Event</h2>
-                  <p className="text-sm text-gray-500 font-normal leading-relaxed">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+                  <p className="text-sm text-gray-500 font-normal leading-relaxed">Create a New Event and specify it's Time. Donot Forget to invite participants</p>
                 </div>
               </div>
               <div className="divide-y divide-gray-200">
